@@ -314,7 +314,7 @@ void machine::generateGraph(FILE*f, const char *ratio, bool lr, bool dl, bool ef
             {
                 outputPerGraph[this->vet[count].subroutine + " (detailed)"] += string(sBuffer);
             }
-            if (this->hasOuterEdges(&this->vet[count]))
+            if (!ef || this->hasOuterEdges(&this->vet[count]))
             {
                 outputPerGraph[this->vet[count].subroutine] += string(buffer);
             }
