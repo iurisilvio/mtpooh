@@ -8,3 +8,4 @@ foreach ($dbh->query('select * from machines order by timestamp asc') as $row) {
   $dbh->exec("insert into machine_names values ($ins_name, $ins_id, $ins_timestamp);");
 }
 
+?>

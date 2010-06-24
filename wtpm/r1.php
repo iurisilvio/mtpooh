@@ -71,7 +71,7 @@ if ($_POST['do'] === 'true') {
   $dia_gfname = $fname . '.graph';
   $dia_fname = $dia_gfname . '.gif';
   $dia_outlines = array();
-  exec("{$turing_dir}tpmgg $fname $tpmgg_flags", $dia_outlines);
+  exec("{$turing_dir}graph-gen $fname $tpmgg_flags", $dia_outlines);
   $dia_blob = file_get_contents($dia_fname);
   unlink($fname);
   unlink($fname2);
@@ -152,3 +152,4 @@ Output:<br />
 </html>
 <?php
 echo $dia_outlines;
+?>
