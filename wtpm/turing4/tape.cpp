@@ -5,33 +5,28 @@ void tape::read(FILE* fin)
   for(int i=pos; ; ++i)
     {
       if (fscanf(fin, " %c", &vet[i])!=1)
-	break;
-      if (vet[i]=='?')
 	{
-	  vet[i]=' ';
+	  vet[i]='#';
+	  break;
+	}
+      if (vet[i]=='#')
+	{
 	  break;
 	}
     }
 }
 void tape::print()
 {
-  int begin, end, size;
+  int end, size;
   size=vet.size();
-  for(begin=0; begin<size; ++begin)
-    if (vet[begin]!=' ')
+  for(end=size-1; end>pos; --end)
+    if (vet[end]!='#')
       break;
-  for(end=size-1; end>=0; --end)
-    if (vet[end]!=' ')
-      break;
-  if (pos<begin)
-    printf("()");
-  for(; begin<=end; ++begin)
-    if (begin==pos)
-      printf("(%c)", vet[begin]);
+  for(int i=0; i<=end; ++i)
+    if (i==pos)
+      printf("(%c)", vet[i]);
     else
-      printf("%c", vet[begin]);
-  if (pos>end)
-    printf("()");
+      printf("%c", vet[i]);
   printf("\n");
 }
 char tape::get()
@@ -47,7 +42,7 @@ tape::tape(int n)
 {
   vet.resize(n);
   for(int i=0; i<n; ++i)
-    vet[i]=' ';
+    vet[i]='#';
   pos=0;
 }
 tape::tape()

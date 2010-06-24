@@ -1,5 +1,6 @@
 #include "machine.h"
 #include <cstdlib>
+#include <cstring>
 #define FMT " %[a-zA-Z0-9_+*&~!-]"
 
 bool machine::run()

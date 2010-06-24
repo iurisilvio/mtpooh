@@ -1,4 +1,5 @@
 /** @author Pooh
+  * Programa para verificar se uma dada
   */
 
 /* Nova versão da TPM (Turing-Pooh Machine)
@@ -17,16 +18,21 @@
      - Há mensagens de erro.
      - Limitei o número de iterações da máquina em 50k para facilitar a
      versão web. (valeu panda!)
+     - caractere de fita vazia agora é o #
  */
 
-16 /exemplo de comentário de uma linha
+/ número de estados, e estados finais.
+16 1
 start
 fix	 left	  pick
 carry-a1 carry+a2 carry~b1
 carry*b2 carry&c1
-carry_c2 /* comentário no meio do nada */ match
-!!true!! fail
+carry_c2  match
+true fail
 set_next rewind   false
+
+/ estados finais
+true
 
 start /* aqui também pode comentar*/ /* inclusive vários seguidos*/ / gostou?
 {
@@ -59,8 +65,8 @@ left {
      C:C,pick,R;
 }
 pick {
-     0:0,!!true!!,R;
-     ^:^,!!true!!,R;
+     0:0,true,R;
+     ^:^,true,R;
      a:A,carry-a1,R;
      b:B,carry~b1,R;
      c:C,carry&c1,R;
@@ -90,7 +96,7 @@ carry+a2 {
 	 A:A,carry+a2,R;
 	 B:B,carry+a2,R;
 	 C:C,carry+a2,R;
-	 :,false,L;
+	 #:#,false,L;
 	 b:b,fail,L;
 	 c:c,fail,L;
 	 a:A,match,L;
@@ -99,7 +105,7 @@ carry*b2 {
 	 A:A,carry*b2,R;
 	 B:B,carry*b2,R;
 	 C:C,carry*b2,R;
-	 :,false,L;
+	 #:#,false,L;
 	 a:a,fail,L;
 	 c:c,fail,L;
 	 b:B,match,L;
@@ -108,12 +114,12 @@ carry_c2 {
 	 A:A,carry_c2,R;
 	 B:B,carry_c2,R;
 	 C:C,carry_c2,R;
-	 :,false,L;
+	 #:#,false,L;
 	 b:b,fail,L;
 	 a:a,fail,L;
 	 c:C,match,L;
 }
-!!true!! {}
+true {}
 false {}
 match {
       A:A,match,L;

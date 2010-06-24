@@ -21,8 +21,8 @@ copy 6 q2 q3 q4 q5 q6 q7
 
 / transições partindo de q0
 q0 {
-  0: ,q1,R; / lê 0, escreve B, vai pra q1, cabeça pra direita
-  1: ,q9,R; / lê 1, escreve B, vai pra q9, cabeça pra direita
+  0:#,q1,R; / lê 0, escreve B, vai pra q1, cabeça pra direita
+  1:#,q9,R; / lê 1, escreve B, vai pra q9, cabeça pra direita
 }
 
 q1
@@ -46,7 +46,7 @@ q3
 q4
 {
   0:0,q4,R;
-   :0,q5,L;
+  #:0,q5,L;
 }
 
 q5
@@ -70,13 +70,13 @@ q7
 q8
 {
   0:0,q8,L;
-   : ,q0,R;
+  #:#,q0,R;
 }
 
 q9
 {
-  0: ,q9,R;
-  1: ,qf,R;
+  0:#,q9,R;
+  1:#,qf,R;
 }
 
 qf
