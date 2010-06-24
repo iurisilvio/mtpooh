@@ -57,10 +57,21 @@ if ($_POST['do'] === 'true') {
     $output .= $line . "\n";
 
   // creating diagram
+  $tpmgg_flags = "";
+  
+  if ($_POST['tpmgg_lr'] === 'true')
+  {
+    $tpmgg_flags .= " -lr";
+  }
+  else if ($_POST['tpmgg_ef'] === 'true')
+  {
+    $tpmgg_flags .= ' -ef';
+  }
+  
   $dia_gfname = $fname . '.graph';
   $dia_fname = $dia_gfname . '.gif';
   $dia_outlines = array();
-  exec("{$turing_dir}tpmgg $fname", $dia_outlines);
+  exec("{$turing_dir}tpmgg $fname $tpmgg_flags", $dia_outlines);
   $dia_blob = file_get_contents($dia_fname);
   unlink($fname);
   unlink($fname2);
@@ -123,7 +134,10 @@ Máquinas submetidas: <br />
 <?php endforeach; ?>
 </td>
 <td style="vertical-align: top; border: 1px solid black;">
-Diagrama:<br />
+<div>
+Diagrama: <input type="checkbox" value="true" name="tpmgg_lr"> Horizontal&nbsp;&nbsp;<input type="checkbox" value="true" name="tpmgg_ef">Extrair Subrotinas
+</div>
+<br />
 <?php if ($dia_blob !== null): ?>
 <img src="data:image/gif;base64,<?php echo base64_encode($dia_blob);?>" /><br />
 <?php endif; ?>
