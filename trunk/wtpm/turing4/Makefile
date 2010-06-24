@@ -1,7 +1,7 @@
 FLAGS=-g -pedantic -ansi -Wall -Wno-long-long
 OBJ=state.o machine.o result.o tape.o
 
-build: turing
+build: turing graph-gen
 
 state.o: state.cpp machine.h
 	g++ state.cpp -o state.o -c $(FLAGS)
@@ -18,14 +18,9 @@ tape.o: tape.cpp machine.h
 turing: turing.cpp $(OBJ)
 	g++ turing.cpp $(OBJ) -o turing $(FLAGS)
 
-clear:
-	rm *.o
-	rm turing
+clean: build
+	rm $(OBJ)
 
-clean:
-	make clear
-	make turing
+graph-gen: graph-gen.cpp $(OBJ)
+	g++ graph-gen.cpp $(OBJ) -o graph-gen $(FLAGS)
 
-tpmgg: tpmgg.cpp $(OBJ)
-	g++ -DGRAPH_GEN machine.cpp -o machine_altered.o -c $(FLAGS)
-	g++ -DGRAPH_GEN tpmgg.cpp state.o result.o tape.o machine_altered.o -o tpmgg $(FLAGS)

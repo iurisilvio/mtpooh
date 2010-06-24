@@ -263,8 +263,6 @@ char toGraphDir(int dir)
     else return 'D';
 }
 
-#ifdef GRAPH_GEN
-
 // TODO:
 bool machine::hasOuterEdges(const state* s)
 {
@@ -385,4 +383,3 @@ void machine::generateGraph(FILE*f, const char *ratio, bool lr, bool dl, bool ef
 
     fprintf(f, "}\n");
 }
-#endif

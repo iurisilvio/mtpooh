@@ -1,6 +1,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <cstdio>
 using namespace std;
 
 class state;
@@ -47,10 +48,7 @@ class machine {
   bool apply();
   bool read(FILE*);
   void debug();
-#ifdef GRAPH_GEN
   bool hasOuterEdges(const state*);
   void generateGraph(FILE*f, const char *ratio, bool lr, bool dl, bool ef);
-#endif
   machine(tape*);
 };
-
