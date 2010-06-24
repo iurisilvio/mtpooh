@@ -1,0 +1,35 @@
+para compilar:
+     -você vai precisar de uma cópia do g++ funcionando, com o make no path do sistema.
+     -digite "make" sem as aspas em um console dentro desta pasta.
+exemplo de funcionamento:
+     -após compilar, o seguinte comando deverá funcionar:
+     	  ./turing somador.tm input
+
+para utilizar:
+     -o arquivo executável, por padrão, é nomeado turing. o modo de usar usual é o seguinte:
+          ./turing <arquivo1> <arquivo2>
+     -o arquivo1 deve conter uma descrição dos estados utilizados na máquina de turing, há um exemplo
+     chamado somador.tm junto com os fontes.
+     -o arquivo2 deve conter uma sequencia caracteres representando os símbolos que serão dados como
+     input para a máquina na fita, onde o caractere espaço é utilizado para representar espaço vazio na fita, 
+     o caractere interrogação pode ser utilizado para descrever o fim do input.
+     -caso só um arquivo seja fornecido, ele será utilizado como descrição dos estados e a fita será
+     lida de stdin, para terminar a descrição da fita, insira algum caractere não seja número nem espaço.
+     -caso nenhum arquivo seja fornecido, será lido primeiramente a descrição dos estados e logo em
+     seguida a fita de stdin.
+     -a execução da máquina termina quando não há a transição possível.
+
+descrição dos estados para a máquina:
+
+     o arquivo deverá conter um inteiro n, dizendo o total de estados que serão utilizados.
+     logo em seguida deverá conter n strings alfanuméricas nomeando os estados.
+     a primeira string nomeada será o estado inicial da máquina.
+     finalmente o arquivo deverá conter para todos os estados o nome do estado sequido de '{'
+     depois várias transições de estados na forma:
+          inteiro-a:inteiro-b,nome-de-estado, L ou R;
+     que significa: neste estado, ao ler o inteiro-a na fita, deverá sobrescrevê-lo com inteiro-b, trocar
+     para o estado nome-de-estado, e deslocar (a cabeça de leitura) para a esquerda (L) ou direita (R).
+     há 3 tipos de comentários possíveis de serem utilizados na descrição:
+          - /* comentário de muitas linhas */
+	  - / comentário até o fim de linha
+          - texto ao final da descrição do último estado.
