@@ -63,7 +63,7 @@ if ($_POST['do'] === 'true') {
   {
     $tpmgg_flags .= " -lr";
   }
-  else if ($_POST['tpmgg_ef'] === 'true')
+  if ($_POST['tpmgg_ef'] === 'true')
   {
     $tpmgg_flags .= ' -ef';
   }
