@@ -37,7 +37,7 @@
   }
   else 
   {
-    echo("Errors were found:\n\n" . $dia_outlines.join("\n"));
+    echo("Errors were found:\n\n" . join("\n", $dia_outlines));
   }
   
   unlink($basefilename);
