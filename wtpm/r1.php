@@ -146,7 +146,7 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
       <iframe src="tpm_gg_client.html" style="width: 100%; height:100%;" ></iframe>
     </div>
   </div>
-  <input type="submit" value="Gerar Nova Versão da Máquina" id="btUpdateMachine" />
+  <input type="submit" value="<?  echo(($load_id !== null) ? "Gerar Nova Versão da Máquina" : "Salvar Máquina");?>" id="btUpdateMachine" />
 </form>
 </body>
 </html>
