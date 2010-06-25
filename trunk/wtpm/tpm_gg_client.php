@@ -3,13 +3,11 @@
 <script src="prototype.js" type="text/javascript"></script>
 </head>
 <body>
-<script type="text/javascript"><!--
-
-  $('machine').value = window.parent.getCodigoMaquina();
-  alert($('form').serialize(true));
-  
+<script type="text/javascript"><!--  
   function geraGrafo()
   {
+    $('machine').value = window.parent.getCodigoMaquina();
+  
     $('errorsContainer').style.display = 'none';
     $('graphContainer').style.display = 'none';
   
