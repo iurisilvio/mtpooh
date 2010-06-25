@@ -1,26 +1,26 @@
-FLAGS=-g -pedantic -ansi -Wall -Wno-long-long
-OBJ=state.o machine.o result.o tape.o
+CXX=g++
+CXX_CFLAGS=-g -pedantic -ansi -Wall -Wno-long-long
 
-build: turing graph-gen
+SRCS_SHARED=state.cpp machine.cpp result.cpp tape.cpp
+OBJS_SHARED=${SRCS_SHARED:.cpp=.o}
+EXE=turing graph-gen
 
-state.o: state.cpp machine.h
-	g++ state.cpp -o state.o -c $(FLAGS)
+.PHONY: all clean
 
-machine.o: machine.cpp machine.h
-	g++ machine.cpp -o machine.o -c $(FLAGS)
+.SUFFIXES:
+.SUFFIXES: .o .cpp
 
-result.o: result.cpp machine.h
-	g++ result.cpp -o result.o -c $(FLAGS)
+.cpp.o:
+	$(CXX) $(CXX_CFLAGS) -c $<
 
-tape.o: tape.cpp machine.h
-	g++ tape.cpp -o tape.o -c $(FLAGS)
+all: $(EXE)
 
-turing: turing.cpp $(OBJ)
-	g++ turing.cpp $(OBJ) -o turing $(FLAGS)
+turing: $(OBJS_SHARED) turing.o
+	$(CXX) $(OBJS_SHARED) turing.o -o $@
 
-clean: build
-	rm $(OBJ)
+graph-gen: $(OBJS_SHARED) graph-gen.o
+	$(CXX) $(OBJS_SHARED) graph-gen.o -o $@
 
-graph-gen: graph-gen.cpp $(OBJ)
-	g++ graph-gen.cpp $(OBJ) -o graph-gen $(FLAGS)
-
+clean:
+	-rm *.o
+	-rm $(EXE)
