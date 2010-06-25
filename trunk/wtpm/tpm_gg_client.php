@@ -16,16 +16,16 @@
       {
         var response = transport.responseText;
         alert(response.substring(0, 500));
-        //if (response.substring(0, 5) == 'Error')
-        //{
+        if (response.substring(0, 5) == 'Error')
+        {
           $('errors').innerHTML = response;
           $('errorsContainer').style.display = 'block';
-        //}
-        //else
-        //{      
-        //  $('graphContainer').innerHTML = '<img src="data:image/gif;base64,' + response + '" />';
-        //  $('graphContainer').style.display = 'block';
-        //}
+        }
+        else
+        {      
+          $('graphContainer').innerHTML = '<img src="data:image/gif;base64,' + response + '" />';
+          $('graphContainer').style.display = 'block';
+        }
       },
       parameters: 
       {
