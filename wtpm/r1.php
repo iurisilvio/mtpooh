@@ -140,10 +140,10 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
       <textarea id="machine" name="machine" style="width: 100%; height: 100%; font-family: monospace;"><?php if (!is_null($loaded_machine)) echo htmlspecialchars($loaded_machine); ?></textarea>
     </div>
     <div class="abaConteudo" id="maquinaAbaConteudo2">
-      <iframe src="turing_client.php" style="width: 100%; height:100%;" ></iframe>
+      <iframe src="turing_client.html" style="width: 100%; height:100%;" ></iframe>
     </div>
     <div class="abaConteudo" id="maquinaAbaConteudo1">
-      <iframe src="tpm_gg_client.php" style="width: 100%; height:100%;" ></iframe>
+      <iframe src="tpm_gg_client.html" style="width: 100%; height:100%;" ></iframe>
     </div>
   </div>
   <input type="submit" value="Gerar Nova Versão da Máquina" id="btUpdateMachine" />
