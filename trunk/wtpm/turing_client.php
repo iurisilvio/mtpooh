@@ -29,7 +29,7 @@
   $('input').value = window.parent.getInputPadrao();
  //--></script>
  <div style="padding-top: 20px;">Output:</div>
- <div style="height: 550px; overflow: scroll;">
+ <div style="height: 500px; overflow: scroll;">
   <pre id="output">
    <pre>
  </div>
