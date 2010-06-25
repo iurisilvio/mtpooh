@@ -29,11 +29,11 @@
      
   $dia_outlines = array();
   exec("{$turing_dir}graph-gen $basefilename $tpmgg_flags -o $outputfilename", $dia_outlines);
-  $gif = file_get_contents($outputfilename);
+  $gif = @file_get_contents($outputfilename);
   
   if ($gif !== null)
-  {
     echo(base64_encode($gif));  
+    unlink($outputfilename);
   }
   else 
   {
@@ -42,4 +42,3 @@
   
   unlink($basefilename);
   unlink($basefilename . ".graph");
-  unlink($outputfilename);
