@@ -114,6 +114,12 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
 <head>
 <!-- TODO: Extrair para arquivo .css -->
 <style type="text/css"><!--
+  
+  div.abaCabecalho
+  {
+    width: 100%;
+  }
+  
   div.aba
   {
     cursor: hand;
@@ -132,6 +138,21 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
       float:left;
       width: 10px;
   }
+
+  .abaConteudo, .abaConteudoAtiva
+  {
+    width: 100%;
+  }
+  
+  .abaConteudo
+  {
+    display: none;
+  }
+  
+  .abaConteudoAtiva
+  {
+    display: block;
+  }
 --></style>
 <title>Web Turing-Pooh Machine</title>
 </head>
@@ -148,7 +169,7 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
   {
     for (var i = 0; i < 2; ++i)
     {
-      $('maquinaAba' + i).style.display = (index == i) ? 'block' : 'none';
+      $('maquinaAba' + i).className = (index == i) ? 'abaConteudo' : 'abaConteudoAtiva';
     }
   }
 //--></script>
@@ -164,10 +185,10 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
   <div>Maquina: (em formato pooh):</div>
   <div class="abaCabecalho"><div class="aba" onclick="javascript:exibeAbaMaquina(0)">Código</div><div class="abaSeparador">&nbsp;</div><div class="aba" onclick="javascript:exibeAbaMaquina(1)">Diagrama de Estados</div></div>
   <div class="abaContainer">
-  <div class="abaConteudo" id="maquinaAba0" style="display: block;">
+  <div class="abaConteudoAtiva" id="maquinaAba0">
   <textarea name="machine" rows="80" style="width: 600px; font-family: monospace;"><?php if (!is_null($loaded_machine)) echo htmlspecialchars($loaded_machine); ?></textarea>
   </div>
-  <div class="abaConteudo" id="maquinaAba1" style="display: none;">
+  <div class="abaConteudo" id="maquinaAba1">
   Hello World
   </div>
   </div>
