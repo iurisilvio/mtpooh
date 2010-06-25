@@ -17,7 +17,7 @@
   {
     $tpmgg_flags .= ' -dl';
   }
-  if (isset($_POST['tpmgg_ratio']))
+  if (isset($_POST['tpmgg_ratio']) && $_POST['tpmgg_ratio'] !== 'auto')
   {
     $ratio = (float)$_POST['tpmgg_ratio'];
     $tpmgg_flags .= " -r $ratio";
