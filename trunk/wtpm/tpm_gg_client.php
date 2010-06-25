@@ -33,7 +33,7 @@
   }
 //--></script>
 
-<form id="form" action="tpm_gg.php" method="post">
+<form id="form" action="javascript:void(0)" method="post">
 <input type="hidden" name="machine" id="machine" />
 <div>
 <a href="javascript:void(0)" onclick="geraGrafo()" >Gerar Grafo (não funciona no IE)</a>

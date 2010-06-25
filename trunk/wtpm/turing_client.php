@@ -23,7 +23,7 @@
 <form id="form" action="javascript:void(0)" method="post">
 <input type="hidden" name="machine" id="machine" />
  <div>Input: </div>
- <div><input type="text" name="input" /></div>
+ <div><input type="text" name="input" /><input type="submit" value="Go!" onclick="javascript:simulaMaquina()" /></div>
 </form>
 </body>
 </html>
