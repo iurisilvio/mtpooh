@@ -27,9 +27,7 @@
   
   $outlines = array();
   exec("{$turing_dir}turing $fname $fname2", $outlines);
-  $output = '';
-  foreach ($outlines as $line)
-    $output .= $line . "\n";
+  echo(join("\n", $outlines));
     
   @unlink($fname);
   @unlink($fname2);
