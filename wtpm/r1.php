@@ -150,5 +150,3 @@ Output:<br />
 </table>
 </body>
 </html>
-<?php
-echo $dia_outlines;
