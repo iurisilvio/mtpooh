@@ -101,15 +101,15 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
 <form method="post" action="<?php echo $self_name;?><?php if ($load_id != null) echo '?load_id='.$load_id;?>">
 <div id="mainContainer">
   <div id="maquinasSubmetidas" style="float: right; width: 400px; height: 200px; overflow: scroll; border: black solid 1px; padding: 10px;">
-  <div>Máquinas submetidas:</div>
-  <div>
-<?php foreach ($machine_names as $row): ?>
-<a href="list_name.php?id=<?php echo $row['id'];?>"><?php if ($row['name'] != '') echo htmlspecialchars($row['name']); else echo 'VAZIO';?></a><br />
-<?php endforeach; ?>
-</div>
-</div>
+    <div>Máquinas submetidas:</div>
+    <div>
+      <?php foreach ($machine_names as $row): ?>
+        <a href="list_name.php?id=<?php echo $row['id'];?>"><?php if ($row['name'] != '') echo htmlspecialchars($row['name']); else echo 'VAZIO';?></a><br />
+      <?php endforeach; ?>
+    </div>
+  </div>
 
-  <div id="metadataContainer" style="min-width: 500px;">
+  <div id="metadataContainer" style="width: 500px;">
   <input type="hidden" name="do" value="true" />
   <div>Nome de sua maquina: (só pra identificacao):</div>
   <textarea name="name" rows="1" style="width: 400px; font-family: monospace;"><?php if (!is_null($loaded_name)) echo htmlspecialchars($loaded_name); ?></textarea><br />
@@ -138,7 +138,7 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
       <iframe src="tpm_gg_client.php" style="width: 100%; height:100%;" ></iframe>
     </div>
   </div>
-  <input type="submit" value="Gerar Nova Vers�o da M�quina" id="btUpdateMachine" />
+  <input type="submit" value="Gerar Nova Versão da Máquina" id="btUpdateMachine" />
 </form>
 </body>
 </html>
