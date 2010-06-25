@@ -1,8 +1,10 @@
   <?php
+
+  $turing_dir = 'turing4/';
+  $basefilename = (string)time(); 
+  $outputfilename = $basefilename . ".out";
   
   // creating diagram
-  $tpmgg_flags = "";
-  
   if ($_POST['tpmgg_lr'] === 'true')
   {
     $tpmgg_flags .= " -lr";
@@ -11,23 +13,38 @@
   {
     $tpmgg_flags .= ' -ef';
   }
+  if ($_POST['tpmgg_dl'] === 'true')
+  {
+    $tpmgg_flags .= ' -dl';
+  }
+  if (isset($_POST['tpmgg_ratio']))
+  {
+    $ratio = (float)$_POST['tpmgg_ratio'];
+    $tpmgg_flags .= " -r $ratio";
+  }
   
-  $dia_gfname = $fname . '.graph';
-  $dia_fname = $dia_gfname . '.gif';
+  $machinefd = fopen($basefilename, "w+");
+  fwrite($machinefd, $_POST['machine']);
+  fclose($machinefd);
+     
   $dia_outlines = array();
-  exec("{$turing_dir}graph-gen $fname $tpmgg_flags", $dia_outlines);
-  $dia_blob = file_get_contents($dia_fname);
-  unlink($fname);
-  unlink($fname2);
-  unlink($dia_gfname);
-  unlink($dia_fname);
-  $dia_output = '';
-  foreach ($dia_outlines as $line)
-    $dia_output .= '<!--' . htmlspecialchars($line) . '-->' . "\n";
-    
+  exec("{$turing_dir}graph-gen $basefilename $tpmgg_flags -o $outputfilename", $dia_outlines);
+  $gif = file_get_contents($outputfilename);
+  echo($gif);  
+  unlink($basefilename);
+  unlink($basefilename . ".graph");
+  unlink($outfilename);
 ?>
 <html>
-<body>
-Hello World
-</body>
-</html>
+<body style="margin: 0px; padding: 0px;">
+<?php if ($dia_blob !== null): ?>
+<img src="data:image/gif;base64,<?php echo base64_encode($gif);?>" /><br />
+<?php endif; ?>
+<!--  como q é o else? -->
+<?php if ($dia_blob === null): ?>
+<div style="padding: 10px;">
+<pre>
+<? echo($dia_outlines); ?>
+</pre>
+</div>
+<?php endif; ?>
