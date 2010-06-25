@@ -111,19 +111,66 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
 
 ?>
 <html>
-<head><title>Web Turing-Pooh Machine</title></head>
+<head>
+<!-- TODO: Extrair para arquivo .css -->
+<style type="text/css"><!--
+  div.aba
+  {
+    cursor: hand;
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  div.aba:hover
+  {
+    font-weight: bold;
+  }
+  
+  div.abaSeparador
+  {
+      float:left;
+      width: 10px;
+  }
+--></style>
+<title>Web Turing-Pooh Machine</title>
+</head>
 <body>
+<script type="text/javascript"><!--
+  // TODO: Extrair para arquivo .js
+  
+  function $(id)
+  {
+    return document.getElementById(id);
+  }
+  
+  function exibeAbaMaquina(index)
+  {
+    for (int i = 0; i < 2; ++i)
+    {
+      $('maquinaAba' + i).style.display = (index == i) ? 'block' : 'none';
+    }
+  }
+//--></script>
 <form method="post" action="<?php echo $self_name;?><?php if ($load_id != null) echo '?load_id='.$load_id;?>">
 <table>
 <tr>
 <td style="vertical-align: top; border: 1px solid black;">
   <input type="hidden" name="do" value="true" />
-  Nome de sua maquina: (só pra identificacao):<br />
+  <div>Nome de sua maquina: (só pra identificacao):</div>
   <textarea name="name" rows="1" style="width: 600px; font-family: monospace;"><?php if (!is_null($loaded_name)) echo htmlspecialchars($loaded_name); ?></textarea><br />
-  Breve comentário (também para identificação):<br />
+  <div>Breve comentário (também para identificação):</div>
   <textarea name="comment" rows="1" style="width: 600px; font-family: monospace;"><?php if (!is_null($loaded_comment)) echo htmlspecialchars($loaded_comment); ?></textarea><br />
-  Maquina: (em formato pooh):<br />
-  <textarea name="machine" rows="80" style="width: 600px; font-family: monospace;"><?php if (!is_null($loaded_machine)) echo htmlspecialchars($loaded_machine); ?></textarea><br />
+  <div>Maquina: (em formato pooh):</div>
+  <div class="abaCabecalho"><div class="aba" onclick="javascript:exibeAbaMaquina(0)">Código</div><div class="abaSeparador">&nbsp;</div><div class="aba" onclick="javascript:exibeAbaMaquina(1)">Diagrama de Estados</div></div>
+  <div class="abaContainer">
+  <div class="abaConteudo" id="maquinaAba0" style="display: block;">
+  <textarea name="machine" rows="80" style="width: 600px; font-family: monospace;"><?php if (!is_null($loaded_machine)) echo htmlspecialchars($loaded_machine); ?></textarea>
+  </div>
+  <div class="abaConteudo" id="maquinaAba1" style="display: none;">
+  Hello World
+  </div>
+  </div>
   Input:<br />
   <textarea name="input" rows="4" style="width: 600px; font-family: monospace;"><?php if (!is_null($loaded_input)) echo htmlspecialchars($loaded_input); ?></textarea><br />
   <input type="submit" />
