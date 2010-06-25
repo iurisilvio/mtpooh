@@ -1,0 +1,50 @@
+  
+  div.abaCabecalho
+  {
+    width: 100%;
+  }
+  
+  div.aba, div.abaAtiva
+  {
+    cursor: hand;
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-left: #CCCCCC solid 1px;
+    border-right: #CCCCCC solid 1px;
+    border-top: #CCCCCC solid 1px;
+    background-color: #FFEFA0;
+  }
+  
+  div.aba:hover, div.abaAtiva
+  {
+    font-weight: bold;
+  }
+  
+  div.abaSeparador
+  {
+      float:left;
+      width: 10px;
+  }
+
+  .abaConteudo, .abaConteudoAtiva
+  {
+    width: 100%;
+  }
+  
+  .abaContainer
+  {
+    border: #CCCCCC solid 1px;
+    height: 600px;
+    width: 600px;
+  }
+  
+  .abaConteudo
+  {
+    display: none;
+  }
+  
+  .abaConteudoAtiva
+  {
+    display: block;
+  }

@@ -1,6 +1,6 @@
 <html>
 <head>
-<script src="prototype.js" type="text/javascript" />
+<script src="prototype.js" type="text/javascript"></script>
 </head>
 <body>
 <script type="text/javascript"><!--
