@@ -6,7 +6,7 @@
   
   div.aba, div.abaAtiva
   {
-    cursor: hand;
+    cursor: pointer;
     float: left;
     padding-left: 10px;
     padding-right: 10px;
