@@ -100,11 +100,22 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
 //--></script>
 <form method="post" action="<?php echo $self_name;?><?php if ($load_id != null) echo '?load_id='.$load_id;?>">
 <div id="mainContainer">
+  <div id="maquinasSubmetidas" style="float: right; height: 200px; overflow: scroll; border: black solid 1px; padding: 10px;">
+  <div>Máquinas submetidas:</div>
+  <div>
+<?php foreach ($machine_names as $row): ?>
+<a href="list_name.php?id=<?php echo $row['id'];?>"><?php if ($row['name'] != '') echo htmlspecialchars($row['name']); else echo 'VAZIO';?></a><br />
+<?php endforeach; ?>
+</div>
+</div>
+
   <input type="hidden" name="do" value="true" />
   <div>Nome de sua maquina: (só pra identificacao):</div>
   <textarea name="name" rows="1" style="width: 400px; font-family: monospace;"><?php if (!is_null($loaded_name)) echo htmlspecialchars($loaded_name); ?></textarea><br />
   <div>Breve comentário (também para identificação):</div>
   <textarea name="comment" rows="4" style="width: 400px; font-family: monospace;"><?php if (!is_null($loaded_comment)) echo htmlspecialchars($loaded_comment); ?></textarea><br />
+  <div>Input Padrão:</div>
+  <textarea name="input" rows="1" style="width: 400px; font-family: monospace;"><?php if (!is_null($loaded_input)) echo htmlspecialchars($loaded_input); ?></textarea><br />
   <div>Maquina: (em formato pooh):</div>
   <div class="abaCabecalho">
     <div class="abaAtiva" onclick="javascript:exibeAbaMaquina(0)" id="maquinaAba0">Código</div>
@@ -125,17 +136,7 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
       <iframe src="tpm_gg_client.php" style="width: 100%; height:100%;" ></iframe>
     </div>
   </div>
-  <div>Input Padrão:</div>
-  <textarea name="input" rows="1" style="width: 100%; min-width: 1000px; font-family: monospace;"><?php if (!is_null($loaded_input)) echo htmlspecialchars($loaded_input); ?></textarea><br />
-  <input type="submit" />
-  <div id="maquinasSubmetidas">
-  <div>Máquinas submetidas:</div>
-  <div>
-<?php foreach ($machine_names as $row): ?>
-<a href="list_name.php?id=<?php echo $row['id'];?>"><?php if ($row['name'] != '') echo htmlspecialchars($row['name']); else echo 'VAZIO';?></a><br />
-<?php endforeach; ?>
-</div>
-</div>
+  <input type="submit" value="Gerar Nova Vers�o da M�quina" id="btUpdateMachine" style="display: none;" />
 </form>
 </body>
 </html>
