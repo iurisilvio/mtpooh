@@ -87,59 +87,7 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
 ?>
 <html>
 <head>
-<!-- TODO: Extrair para arquivo .css -->
-<style type="text/css"><!--
-  
-  div.abaCabecalho
-  {
-    width: 100%;
-  }
-  
-  div.aba, div.abaAtiva
-  {
-    cursor: hand;
-    float: left;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-left: #CCCCCC solid 1px;
-    border-right: #CCCCCC solid 1px;
-    border-top: #CCCCCC solid 1px;
-    background-color: #FFEFA0;
-  }
-  
-  div.aba:hover, div.abaAtiva
-  {
-    font-weight: bold;
-  }
-  
-  div.abaSeparador
-  {
-      float:left;
-      width: 10px;
-  }
-
-  .abaConteudo, .abaConteudoAtiva
-  {
-    width: 100%;
-  }
-  
-  .abaContainer
-  {
-    border: #CCCCCC solid 1px;
-    height: 1000px;
-    width: 600px;
-  }
-  
-  .abaConteudo
-  {
-    display: none;
-  }
-  
-  .abaConteudoAtiva
-  {
-    display: block;
-  }
---></style>
+<link rel="stylesheet" type="text/css" href="tpm_wb+.css" />
 <title>Web Turing-Pooh Machine</title>
 </head>
 <body>
