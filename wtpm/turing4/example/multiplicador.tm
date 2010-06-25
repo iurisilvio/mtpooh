@@ -5,6 +5,8 @@
 
   Esta máquina de exemplo é um multiplicador. Se a entrada for
   0010001 (equivalente a 2 * 3), a saída será 000000.
+
+  Espaço é #.
 */
 
 /* Números abaixo são:

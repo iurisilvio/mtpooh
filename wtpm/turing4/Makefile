@@ -5,7 +5,10 @@ SRCS_SHARED=state.cpp machine.cpp result.cpp tape.cpp
 OBJS_SHARED=${SRCS_SHARED:.cpp=.o}
 EXE=turing graph-gen
 
-.PHONY: all clean
+DIRS=example
+TURING_DIR=turing4/
+
+.PHONY: all clean deploy
 
 .SUFFIXES:
 .SUFFIXES: .o .cpp
@@ -24,3 +27,9 @@ graph-gen: $(OBJS_SHARED) graph-gen.o
 clean:
 	-rm *.o
 	-rm $(EXE)
+
+deploy: all
+	test -n "$(DESTDIR)"
+	mkdir -p $(DESTDIR)$(TURING_DIR)
+	cp $(EXE) .htaccess $(DESTDIR)$(TURING_DIR)
+	-for d in $(DIRS); do (cd $$d; $(MAKE) $(MFLAGS) deploy); done
