@@ -33,8 +33,7 @@
   
   if ($gif !== false)
   {
-    echo(base64_encode($gif));  
-    unlink($outputfilename);
+    echo(base64_encode($gif));      
   }
   else 
   {
@@ -42,4 +41,5 @@
   }
   
   unlink($basefilename);
-  unlink($basefilename . ".graph");
+  @unlink($basefilename . ".graph");
+  @unlink($outputfilename);
