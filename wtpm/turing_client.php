@@ -24,12 +24,12 @@
 <form id="form" action="javascript:void(0)" method="post">
 <input type="hidden" name="machine" id="machine" />
  <div>Input: </div>
- <div><input type="text" id="input" name="input" style="width: 80%;" /><input type="submit" value="Go!" onclick="javascript:simulaMaquina()" /></div>
+ <div><input type="text" id="input" name="input" style="width: 80%; font-family: monospace;" /><input type="submit" value="Go!" onclick="javascript:simulaMaquina()" /></div>
  <script type="text/javascript"><!--
   $('input').value = window.parent.getInputPadrao();
  //--></script>
  <div style="padding-top: 20px;">Output:</div>
- <div>
+ <div style="height: 550px; overflow: scroll;">
   <pre id="output">
    <pre>
  </div>
