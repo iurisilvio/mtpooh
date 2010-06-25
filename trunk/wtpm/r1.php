@@ -92,7 +92,7 @@ if (isset($_GET['load_id']))
   $load_id = $_GET['load_id'];
 $loaded_name = 'NOOOOME';
 $loaded_comment = 'máquina de exemplo';
-$loaded_machine = file_get_contents("{$turing_dir}multiplicador.tm");
+$loaded_machine = file_get_contents("{$turing_dir}example/multiplicador.tm");
 $loaded_input = '0010001';
 
 if ($_POST['do'] === 'true') {
