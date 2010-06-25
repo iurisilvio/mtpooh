@@ -100,7 +100,7 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
 //--></script>
 <form method="post" action="<?php echo $self_name;?><?php if ($load_id != null) echo '?load_id='.$load_id;?>">
 <div id="mainContainer">
-  <div id="maquinasSubmetidas" style="float: right; height: 200px; overflow: scroll; border: black solid 1px; padding: 10px;">
+  <div id="maquinasSubmetidas" style="float: right; width: 400px; height: 200px; overflow: scroll; border: black solid 1px; padding: 10px;">
   <div>Máquinas submetidas:</div>
   <div>
 <?php foreach ($machine_names as $row): ?>
@@ -109,6 +109,7 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
 </div>
 </div>
 
+  <div id="metadataContainer" style="min-width: 500px;">
   <input type="hidden" name="do" value="true" />
   <div>Nome de sua maquina: (só pra identificacao):</div>
   <textarea name="name" rows="1" style="width: 400px; font-family: monospace;"><?php if (!is_null($loaded_name)) echo htmlspecialchars($loaded_name); ?></textarea><br />
@@ -116,6 +117,7 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
   <textarea name="comment" rows="4" style="width: 400px; font-family: monospace;"><?php if (!is_null($loaded_comment)) echo htmlspecialchars($loaded_comment); ?></textarea><br />
   <div>Input Padrão:</div>
   <textarea name="input" rows="1" style="width: 400px; font-family: monospace;"><?php if (!is_null($loaded_input)) echo htmlspecialchars($loaded_input); ?></textarea><br />
+  </div>
   <div>Maquina: (em formato pooh):</div>
   <div class="abaCabecalho">
     <div class="abaAtiva" onclick="javascript:exibeAbaMaquina(0)" id="maquinaAba0">Código</div>
