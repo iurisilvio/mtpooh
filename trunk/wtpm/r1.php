@@ -113,10 +113,10 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
 <html>
 <head><title>Web Turing-Pooh Machine</title></head>
 <body>
+<form method="post" action="<?php echo $self_name;?><?php if ($load_id != null) echo '?load_id='.$load_id;?>">
 <table>
 <tr>
 <td style="vertical-align: top; border: 1px solid black;">
-<form method="post" action="<?php echo $self_name;?><?php if ($load_id != null) echo '?load_id='.$load_id;?>">
   <input type="hidden" name="do" value="true" />
   Nome de sua maquina: (só pra identificacao):<br />
   <textarea name="name" rows="1" style="width: 600px; font-family: monospace;"><?php if (!is_null($loaded_name)) echo htmlspecialchars($loaded_name); ?></textarea><br />
@@ -127,7 +127,6 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
   Input:<br />
   <textarea name="input" rows="4" style="width: 600px; font-family: monospace;"><?php if (!is_null($loaded_input)) echo htmlspecialchars($loaded_input); ?></textarea><br />
   <input type="submit" />
-</form>
 Máquinas submetidas: <br />
 <?php foreach ($machine_names as $row): ?>
 <a href="list_name.php?id=<?php echo $row['id'];?>"><?php if ($row['name'] != '') echo htmlspecialchars($row['name']); else echo 'VAZIO';?></a><br />
@@ -135,7 +134,7 @@ Máquinas submetidas: <br />
 </td>
 <td style="vertical-align: top; border: 1px solid black;">
 <div>
-Diagrama: <input type="checkbox" value="true" name="tpmgg_lr" /> Horizontal&nbsp;&nbsp;<input type="checkbox" value="true" name="tpmgg_ef" />Extrair Subrotinas
+Diagrama: <input type="checkbox" value="true" name="tpmgg_lr" <? echo($_POST['tpmgg_lr'] ? 'checked' : '') ?> /> Horizontal&nbsp;&nbsp;<input type="checkbox" value="true" name="tpmgg_ef" <? echo($_POST['tpmgg_ef'] ? 'checked' : '') ?> />Extrair Subrotinas
 </div>
 <br />
 <?php if ($dia_blob !== null): ?>
@@ -148,5 +147,6 @@ Output:<br />
 </td>
 </tr>
 </table>
+</form>
 </body>
 </html>
