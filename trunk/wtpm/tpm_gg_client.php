@@ -14,7 +14,7 @@
       method: 'post',
       onSuccess: function(transport) 
       {
-        var response = transport.responseText;
+        var response = transport.responseText.substring(0, 32768);
         if (response.substring(0, 5) == 'Error')
         {
           $('errors').innerHTML = response;
@@ -22,7 +22,7 @@
         }
         else
         {      
-          $('graph').src = 'data:image/png;base64,' + response;
+          $('graph').src = 'data:image/gif;base64,' + response;
           $('graphContainer').style.display = 'block';
         }
       },
