@@ -30,21 +30,17 @@
   $dia_outlines = array();
   exec("{$turing_dir}graph-gen $basefilename $tpmgg_flags -o $outputfilename", $dia_outlines);
   $gif = file_get_contents($outputfilename);
-  echo($gif);  
+  
+  if ($gif !== null)
+  {
+    echo(base64_encode($gif));  
+  }
+  else 
+  {
+    echo("Errors were found:\n\n" . $dia_outlines.join("\n"));
+  }
+  
   unlink($basefilename);
   unlink($basefilename . ".graph");
   unlink($outfilename);
 ?>
-<html>
-<body style="margin: 0px; padding: 0px;">
-<?php if ($dia_blob !== null): ?>
-<img src="data:image/gif;base64,<?php echo base64_encode($gif);?>" /><br />
-<?php endif; ?>
-<!--  como q é o else? -->
-<?php if ($dia_blob === null): ?>
-<div style="padding: 10px;">
-<pre>
-<? echo($dia_outlines); ?>
-</pre>
-</div>
-<?php endif; ?>
