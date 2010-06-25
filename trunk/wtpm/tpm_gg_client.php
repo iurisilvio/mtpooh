@@ -14,7 +14,7 @@
       method: 'post',
       onSuccess: function(transport) 
       {
-        var response = transport.responseText.substring(0, 32768);
+        var response = transport.responseText;
         if (response.substring(0, 5) == 'Error')
         {
           $('errors').innerHTML = response;
