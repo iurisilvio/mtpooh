@@ -30,3 +30,6 @@
   $output = '';
   foreach ($outlines as $line)
     $output .= $line . "\n";
+    
+  @unlink($fname);
+  @unlink($fname2);

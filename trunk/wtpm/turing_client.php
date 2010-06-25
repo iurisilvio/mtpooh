@@ -8,7 +8,7 @@
   {
     $('machine').value = window.parent.getCodigoMaquina();
   
-    new Ajax.Request('tpm_gg.php', 
+    new Ajax.Request('turing.php', 
     {
       method: 'post',
       onSuccess: function(transport) 
