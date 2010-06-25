@@ -42,4 +42,4 @@
   
   unlink($basefilename);
   unlink($basefilename . ".graph");
-  unlink($outfilename);
+  unlink($outputfilename);
