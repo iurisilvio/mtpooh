@@ -120,15 +120,19 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
     width: 100%;
   }
   
-  div.aba
+  div.aba, div.abaAtiva
   {
     cursor: hand;
     float: left;
     padding-left: 10px;
     padding-right: 10px;
+    border-left: #CCCCCC solid 1px;
+    border-right: #CCCCCC solid 1px;
+    border-top: #CCCCCC solid 1px;
+    background-color: #FFEFA0;
   }
   
-  div.aba:hover
+  div.aba:hover, div.abaAtiva
   {
     font-weight: bold;
   }
@@ -146,7 +150,6 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
   
   .abaConteudo
   {
-    float: clear;
     display: none;
   }
   
@@ -170,7 +173,8 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
   {
     for (var i = 0; i < 2; ++i)
     {
-      $('maquinaAba' + i).className = (index == i) ? 'abaConteudoAtiva' : 'abaConteudo';
+      $('maquinaAbaConteudo' + i).className = (index == i) ? 'abaConteudoAtiva' : 'abaConteudo';
+      $('maquinaAba' + i).className = (index == 1) ? 'abaAtiva' : 'aba';
     }
   }
 //--></script>
@@ -184,12 +188,17 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
   <div>Breve comentário (também para identificação):</div>
   <textarea name="comment" rows="1" style="width: 600px; font-family: monospace;"><?php if (!is_null($loaded_comment)) echo htmlspecialchars($loaded_comment); ?></textarea><br />
   <div>Maquina: (em formato pooh):</div>
-  <div class="abaCabecalho"><div class="aba" onclick="javascript:exibeAbaMaquina(0)">Código</div><div class="abaSeparador">&nbsp;</div><div class="aba" onclick="javascript:exibeAbaMaquina(1)">Diagrama de Estados</div></div>
+  <div class="abaCabecalho">
+    <div class="abaAtiva" onclick="javascript:exibeAbaMaquina(0)" id="maquinaAba0">Código</div>
+    <div class="abaSeparador">&nbsp;</div>
+    <div class="aba" onclick="javascript:exibeAbaMaquina(1)" id="maquinaAba1">Diagrama de Estados</div>
+    <div>&nbsp;</div>
+  </div>
   <div class="abaContainer">
-  <div class="abaConteudoAtiva" id="maquinaAba0">
+  <div class="abaConteudoAtiva" id="maquinaAbaConteudo0">
   <textarea name="machine" rows="80" style="width: 600px; font-family: monospace;"><?php if (!is_null($loaded_machine)) echo htmlspecialchars($loaded_machine); ?></textarea>
   </div>
-  <div class="abaConteudo" id="maquinaAba1">
+  <div class="abaConteudo" id="maquinaAbaConteudo1">
   Hello World
   </div>
   </div>
