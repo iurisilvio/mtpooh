@@ -146,7 +146,7 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
   
   function exibeAbaMaquina(index)
   {
-    for (int i = 0; i < 2; ++i)
+    for (var i = 0; i < 2; ++i)
     {
       $('maquinaAba' + i).style.display = (index == i) ? 'block' : 'none';
     }
