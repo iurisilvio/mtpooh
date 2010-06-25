@@ -15,7 +15,6 @@
       onSuccess: function(transport) 
       {
         var response = transport.responseText;
-        alert(response.substring(0, 500));
         if (response.substring(0, 5) == 'Error')
         {
           $('errors').innerHTML = response;

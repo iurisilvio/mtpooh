@@ -126,6 +126,8 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
   .abaContainer
   {
     border: #CCCCCC solid 1px;
+    height: 1000px;
+    width: 600px;
   }
   
   .abaConteudo
@@ -180,7 +182,7 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
     <div class="aba" onclick="javascript:exibeAbaMaquina(1)" id="maquinaAba1">Diagrama de Estados</div>
     <div>&nbsp;</div>
   </div>
-  <div class="abaContainer" style="height: 2000px;">
+  <div class="abaContainer">
     <div class="abaConteudoAtiva" id="maquinaAbaConteudo0">
       <textarea id="machine" name="machine" style="width: 600px; height: 100%; font-family: monospace;"><?php if (!is_null($loaded_machine)) echo htmlspecialchars($loaded_machine); ?></textarea>
     </div>
