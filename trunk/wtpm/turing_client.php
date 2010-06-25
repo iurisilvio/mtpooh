@@ -26,8 +26,9 @@
  <div>Input: </div>
  <div><input type="text" name="input" /><input type="submit" value="Go!" onclick="javascript:simulaMaquina()" /></div>
  <div style="padding-top: 20px;">Output:</div>
- <div style="whitespace: pre-new; font-family: Consolas, Courier New;" id="output">
- &nbsp;
+ <div>
+  <pre id="output">
+   <pre>
  </div>
 </form>
 </body>
