@@ -1,4 +1,4 @@
-  <?php
+<?php
 
   $turing_dir = 'turing4/';
   $basefilename = (string)time(); 
