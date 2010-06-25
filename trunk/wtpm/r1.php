@@ -152,4 +152,3 @@ Output:<br />
 </html>
 <?php
 echo $dia_outlines;
-?>
