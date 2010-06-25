@@ -157,6 +157,12 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
       $('maquinaAba' + i).className = (index == i) ? 'abaAtiva' : 'aba';
     }
   }
+  
+  function getCodigoMaquina()
+  {
+    return $('machine').value;
+  }
+  
 //--></script>
 <form method="post" action="<?php echo $self_name;?><?php if ($load_id != null) echo '?load_id='.$load_id;?>">
 <table>
@@ -176,10 +182,10 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
   </div>
   <div class="abaContainer" style="height: 2000px;">
     <div class="abaConteudoAtiva" id="maquinaAbaConteudo0">
-      <textarea name="machine" style="width: 600px; height: 100%; font-family: monospace;"><?php if (!is_null($loaded_machine)) echo htmlspecialchars($loaded_machine); ?></textarea>
+      <textarea id="machine" name="machine" style="width: 600px; height: 100%; font-family: monospace;"><?php if (!is_null($loaded_machine)) echo htmlspecialchars($loaded_machine); ?></textarea>
     </div>
     <div class="abaConteudo" id="maquinaAbaConteudo1">
-      <iframe src="tpm_gg.php?load_id=<? echo($load_id) ?>" style="width: 100%; height:100%;" ></iframe>
+      <iframe src="tpm_gg_client.php" style="width: 100%; height:100%;" ></iframe>
     </div>
   </div>
   Input:<br />
