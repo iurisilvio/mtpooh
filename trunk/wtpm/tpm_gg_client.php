@@ -23,7 +23,7 @@
         }
         else
         {      
-          $('graphContainer').innerHTML = '<img src="data:image/gif;base64,' + response + '" />';
+          $('graphContainer').innerHTML = '<img src="data:image/png;base64,' + response + '" />';
           $('graphContainer').style.display = 'block';
         }
       },
