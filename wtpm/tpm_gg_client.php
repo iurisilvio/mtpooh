@@ -15,7 +15,6 @@
       onSuccess: function(transport) 
       {
         var response = transport.responseText;
-        alert(response.substring(0, 500));
         if (response.substring(0, 5) == 'Error')
         {
           $('errors').innerHTML = response;
@@ -23,7 +22,7 @@
         }
         else
         {      
-          $('graphContainer').innerHTML = '<img src="data:image/png;base64,' + response + '" />';
+          $('graph').src = 'data:image/png;base64,' + response;
           $('graphContainer').style.display = 'block';
         }
       },
@@ -41,6 +40,7 @@
 <a href="javascript:void(0)" onclick="geraGrafo()" >Gerar Grafo</a>
 </div>
 <div id="graphContainer" style="display: none;">
+<img id="graph" src="" />
 </div>
 <div id="errorsContainer" style="display: none;">
 <pre id="errors">
