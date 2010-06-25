@@ -55,31 +55,6 @@ if ($_POST['do'] === 'true') {
   $output = '';
   foreach ($outlines as $line)
     $output .= $line . "\n";
-
-  // creating diagram
-  $tpmgg_flags = "";
-  
-  if ($_POST['tpmgg_lr'] === 'true')
-  {
-    $tpmgg_flags .= " -lr";
-  }
-  if ($_POST['tpmgg_ef'] === 'true')
-  {
-    $tpmgg_flags .= ' -ef';
-  }
-  
-  $dia_gfname = $fname . '.graph';
-  $dia_fname = $dia_gfname . '.gif';
-  $dia_outlines = array();
-  exec("{$turing_dir}graph-gen $fname $tpmgg_flags", $dia_outlines);
-  $dia_blob = file_get_contents($dia_fname);
-  unlink($fname);
-  unlink($fname2);
-  unlink($dia_gfname);
-  unlink($dia_fname);
-  $dia_output = '';
-  foreach ($dia_outlines as $line)
-    $dia_output .= '<!--' . htmlspecialchars($line) . '-->' . "\n";
 }
 
 // fetch list of programs
@@ -199,12 +174,12 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
     <div class="aba" onclick="javascript:exibeAbaMaquina(1)" id="maquinaAba1">Diagrama de Estados</div>
     <div>&nbsp;</div>
   </div>
-  <div class="abaContainer">
+  <div class="abaContainer" style="height: 2000px;">
   <div class="abaConteudoAtiva" id="maquinaAbaConteudo0">
-  <textarea name="machine" rows="80" style="width: 600px; font-family: monospace;"><?php if (!is_null($loaded_machine)) echo htmlspecialchars($loaded_machine); ?></textarea>
+  <textarea name="machine" style="width: 600px; height: 100%; font-family: monospace;"><?php if (!is_null($loaded_machine)) echo htmlspecialchars($loaded_machine); ?></textarea>
   </div>
   <div class="abaConteudo" id="maquinaAbaConteudo1">
-  Hello World
+  <iframe src="tpm_gg.php?load_id=<? echo($load_id) ?>" style="width: 100%; height:100%;" />
   </div>
   </div>
   Input:<br />
@@ -216,13 +191,6 @@ Máquinas submetidas: <br />
 <?php endforeach; ?>
 </td>
 <td style="vertical-align: top; border: 1px solid black;">
-<div>
-Diagrama: <input type="checkbox" value="true" name="tpmgg_lr" <? echo($_POST['tpmgg_lr'] ? 'checked' : '') ?> /> Horizontal&nbsp;&nbsp;<input type="checkbox" value="true" name="tpmgg_ef" <? echo($_POST['tpmgg_ef'] ? 'checked' : '') ?> />Extrair Subrotinas
-</div>
-<br />
-<?php if ($dia_blob !== null): ?>
-<img src="data:image/gif;base64,<?php echo base64_encode($dia_blob);?>" /><br />
-<?php endif; ?>
 Output:<br />
 <pre>
 <?php echo $output; ?>
