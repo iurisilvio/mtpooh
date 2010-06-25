@@ -32,6 +32,7 @@
   $gif = @file_get_contents($outputfilename);
   
   if ($gif !== null)
+  {
     echo(base64_encode($gif));  
     unlink($outputfilename);
   }
