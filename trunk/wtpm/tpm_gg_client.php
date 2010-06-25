@@ -6,6 +6,7 @@
 <script type="text/javascript"><!--
 
   $('machine').value = window.parent.getCodigoMaquina();
+  alert($('form').serialize(true));
   
   function geraGrafo()
   {
