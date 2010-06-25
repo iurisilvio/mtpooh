@@ -23,7 +23,7 @@
         }
         else
         {      
-          $('graph').src = 'data:image/gif;base64,' + response;
+          $('graphContainer').innerHTML = '<img src="data:image/gif;base64,' + response + '" />';
           $('graphContainer').style.display = 'block';
         }
       },
@@ -41,7 +41,6 @@
 <a href="javascript:void(0)" onclick="geraGrafo()" >Gerar Grafo</a>
 </div>
 <div id="graphContainer" style="display: none;">
-<img id="graph" src="" />
 </div>
 <div id="errorsContainer" style="display: none;">
 <pre id="errors">
