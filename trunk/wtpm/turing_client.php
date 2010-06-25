@@ -2,7 +2,7 @@
 <head>
 <script src="prototype.js" type="text/javascript"></script>
 </head>
-<body>
+<body style="background-color: white;">
 <script type="text/javascript"><!--  
   function simulaMaquina()
   {
