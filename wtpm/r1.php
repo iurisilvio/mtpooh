@@ -135,7 +135,7 @@ Máquinas submetidas: <br />
 </td>
 <td style="vertical-align: top; border: 1px solid black;">
 <div>
-Diagrama: <input type="checkbox" value="true" name="tpmgg_lr"> Horizontal&nbsp;&nbsp;<input type="checkbox" value="true" name="tpmgg_ef">Extrair Subrotinas
+Diagrama: <input type="checkbox" value="true" name="tpmgg_lr" /> Horizontal&nbsp;&nbsp;<input type="checkbox" value="true" name="tpmgg_ef" />Extrair Subrotinas
 </div>
 <br />
 <?php if ($dia_blob !== null): ?>
