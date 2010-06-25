@@ -97,6 +97,11 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
     return $('machine').value;
   }
   
+  function getInputPadrao()
+  {
+    return $('input').value;
+  }
+  
 //--></script>
 <form method="post" action="<?php echo $self_name;?><?php if ($load_id != null) echo '?load_id='.$load_id;?>">
 <div id="mainContainer">
@@ -116,7 +121,7 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
   <div>Breve comentário (também para identificação):</div>
   <textarea name="comment" rows="4" style="width: 400px; font-family: monospace;"><?php if (!is_null($loaded_comment)) echo htmlspecialchars($loaded_comment); ?></textarea><br />
   <div>Input Padrão:</div>
-  <textarea name="input" rows="1" style="width: 400px; font-family: monospace;"><?php if (!is_null($loaded_input)) echo htmlspecialchars($loaded_input); ?></textarea><br />
+  <textarea name="input" id="input" rows="1" style="width: 400px; font-family: monospace;"><?php if (!is_null($loaded_input)) echo htmlspecialchars($loaded_input); ?></textarea><br />
   </div>
   <div>Maquina: (em formato pooh):</div>
   <div class="abaCabecalho">
