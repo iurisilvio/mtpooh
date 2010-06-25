@@ -22,7 +22,7 @@
         }
         else
         {      
-          $('graphContainer').innerHTML = '<img src="data:image/gif;base64,' + response + '" />';
+          $('graphContainer').innerHTML = '<img width="300" height="300" src="data:image/gif;base64,' + response + '" />';
           $('graphContainer').style.display = 'block';
         }
       },
