@@ -4,6 +4,9 @@
 </head>
 <body>
 <script type="text/javascript"><!--
+
+  $('machine').value = window.parent.getCodigoMaquina();
+  
   function geraGrafo()
   {
     $('errorsContainer').style.display = 'none';
@@ -26,15 +29,12 @@
           $('graphContainer').style.display = 'block';
         }
       },
-      parameters: 
-      {
-        machine: window.parent.getCodigoMaquina()
-      }
+      parameters: $('form').serialize(true)      
     });
   }
 //--></script>
 
-<form action="tpm_gg.php" method="post">
+<form id="form" action="tpm_gg.php" method="post">
 <input type="hidden" name="machine" id="machine" />
 <div>
 <a href="javascript:void(0)" onclick="geraGrafo()" >Gerar Grafo (não funciona no IE)</a>
