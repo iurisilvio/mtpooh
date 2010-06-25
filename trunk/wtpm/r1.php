@@ -148,6 +148,11 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
     width: 100%;
   }
   
+  .abaContainer
+  {
+    border: #CCCCCC solid 1px;
+  }
+  
   .abaConteudo
   {
     display: none;
@@ -174,7 +179,7 @@ foreach ($dbh->query('select id, name, machine, input, comment from machines whe
     for (var i = 0; i < 2; ++i)
     {
       $('maquinaAbaConteudo' + i).className = (index == i) ? 'abaConteudoAtiva' : 'abaConteudo';
-      $('maquinaAba' + i).className = (index == 1) ? 'abaAtiva' : 'aba';
+      $('maquinaAba' + i).className = (index == i) ? 'abaAtiva' : 'aba';
     }
   }
 //--></script>
