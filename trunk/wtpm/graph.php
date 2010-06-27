@@ -27,7 +27,7 @@ if ($_POST['send_data'] === 'true') {
 
 $_SESSION['tpmgg'] = $param;
 
-$turing_dir = 'turing4/';
+$turing_dir = 'turing4' . DIRECTORY_SEPARATOR;
 
 // creating diagram
 $tpmgg_flags = '';
