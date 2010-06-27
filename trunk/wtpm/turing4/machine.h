@@ -32,11 +32,30 @@ class tape {
   vector<char> vet;
   int pos;
   void read(FILE*);
-  void print();
   char get();
   void set(result);
   tape(int);
   tape();
+};
+
+class instantconfiguration
+{
+  public:
+    string a1;
+    state* s;
+    string a2;
+
+    void print(int stepIndex) const;
+    bool operator < (const instantconfiguration& other) const;
+};
+
+class runresults
+{
+  public:
+    vector<instantconfiguration> runsteps;
+    bool finished;
+    int loop_start;
+    int loop_end;
 };
 
 class machine {
@@ -44,11 +63,13 @@ class machine {
   vector<state> vet;
   tape* t;
   state* q;
-  bool run();
+  runresults run();
   bool apply();
   bool read(FILE*);
   void debug();
   bool hasOuterEdges(const state*);
   void generateGraph(FILE*f, const char *ratio, bool lr, bool dl, bool ef);
   machine(tape*);
+private:
+  instantconfiguration getInstantConfiguration();
 };
