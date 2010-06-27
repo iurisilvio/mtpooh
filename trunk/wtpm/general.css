@@ -1,0 +1,33 @@
+body {
+	font-family: helvetica, tahoma, verdana, sans-serif;
+}
+
+.entry {
+	width: 100%;
+	font-family: monospace;
+	border: 1px solid black;
+	padding: 1;
+}
+
+textarea.entry {
+	
+}
+
+div.label {
+	margin-top: 10px;
+}
+
+div.tab-contents {
+	margin: 5;
+}
+
+/* Toolbar Icons */
+.save16 { background-image: url(img/toolbar/filesave.png) !important; }
+.back16 { background-image: url(img/toolbar/back.png) !important; }
+
+/* Statusbar states */
+.x-statusbar .x-status-ok {
+	padding-left: 25px !important;
+	background: transparent no-repeat 3px 2px;
+	background-image: url(img/toolbar/ok.png) !important;
+}

@@ -1,0 +1,149 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Web Turing-Pooh Machine</title>
+	<link rel="stylesheet" type="text/css" href="ext/resources/css/ext-all.css"/>
+	<link rel="stylesheet" type="text/css" href="ext/resources/css/xtheme-blue.css"/>
+	<link rel="stylesheet" type="text/css" href="ext-plugins/statusbar.css"/>
+	<link rel="stylesheet" type="text/css" href="general.css"/>
+	<script type="text/javascript" src="ext/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="ext/ext-all-debug.js"></script>
+	<script type="text/javascript" src="ext-plugins/base64.js"></script>
+	<script type="text/javascript" src="ext-plugins/statusbar.js"></script>
+	<script type="text/javascript" src="elastic-textarea.js"></script>
+	<script type="text/javascript" src="front.js"></script>
+</head>
+<body>
+
+	<div id="machine" class="tab-contents">
+		<form id="machine-form">
+			<div class="label">Nome da máquina:</div>
+			<div><input type="text" id="machine-name" class="entry" name="name" value="NOOOOME"/></div>
+			<div class="label">Breve comentário: (também para identificação)</div>
+			<div><input type="text" id="machine-comment" class="entry" name="comment" value="Máquina de exemplo"/></div>
+			<div class="label">Entrada de exemplo:</div>
+			<div><input type="text" id="machine-input" class="entry" name="input" value="0010001"/></div>
+			<div class="label">Código da máquina:</div>
+			<div><textarea id="machine-code" class="entry" name="machine">/*
+  Seja bem vindo ao TPM-GG/WB+. Este programa simula uma máquina de turing
+  e emite um diagrama de estados correspondente à entrada fornecida. A
+  documentação da sintaxe de entrada é este arquivo.
+
+  Esta máquina de exemplo é um multiplicador. Se a entrada for
+  0010001 (equivalente a 2 * 3), a saída será 000000.
+
+  Espaço é #.
+*/
+
+/* Números abaixo são:
+   <num. estados total> <num. estados finais> <num. subrotinas> */
+11 1 1
+/* Estados */
+q0 q1 q2 q3 q4 q5 q6 q7 q8 q9 qf / primeiro é estado inicial
+/* Estados Finais (só pra diagrama)*/
+qf
+/* Subrotinas (só pra diagrama) */
+copy 6 q2 q3 q4 q5 q6 q7
+
+/* Exemplo de Input: 2 * 3 escreve-se 0010001 */
+
+/ transições partindo de q0
+q0 {
+  0:#,q1,R; / lê 0, escreve B, vai pra q1, cabeça pra direita
+  1:#,q9,R; / lê 1, escreve B, vai pra q9, cabeça pra direita
+}
+
+q1
+{
+  0:0,q1,R;
+  1:1,q2,R;
+}
+
+q2
+{
+  0:X,q3,R;
+  1:1,q7,L;
+}
+
+q3
+{
+  0:0,q3,R;
+  1:1,q4,R;
+}
+
+q4
+{
+  0:0,q4,R;
+  #:0,q5,L;
+}
+
+q5
+{
+  0:0,q5,L;
+  1:1,q6,L;
+}
+
+q6
+{
+  0:0,q6,L;
+  X:X,q2,R;
+}
+
+q7
+{
+  X:0,q7,L;
+  1:1,q8,L;
+}
+
+q8
+{
+  0:0,q8,L;
+  #:#,q0,R;
+}
+
+q9
+{
+  0:#,q9,R;
+  1:#,qf,R;
+}
+
+qf
+{
+}</textarea></div>
+		</form>
+	</div>
+	<div id="simulator" class="tab-contents">
+		<form id="simulator-form">
+			<div class="label">Entrada:</div>
+			<div><input type="text" id="simulator-input" class="entry" name="input" value="0010001"/></div>
+			<div><input type="submit" value="Simular"/></div>
+		</form>
+		<div class="label">Saída:</div>
+		<div id="simulator-result"><pre>Simule para ver uma saída!</pre></div>
+	</div>
+	<div id="state-diagram-tab" class="tab-contents">
+		<div id="state-diagram-options">
+			<form id="state-diagram-options-form">
+				<input type="checkbox" id="state-diagram-lr"/> Grafo Horizontal
+				<input type="checkbox" id="state-diagram-ef"/> Subrotinas em Grafos Separados | 
+				Razão Altura / Largura:
+				<select id="state-diagram-ratio">
+				  <option value="auto">Automático</option>
+				  <option value="0.33">1 / 3</option>
+				  <option value="0.50">1 / 2</option>
+				  <option value="0.67">2 / 3</option>
+				  <option value="0.80">4 / 5</option>
+				  <option value="1.0">1 / 1</option>
+				  <option value="1.25">5 / 4</option>
+				  <option value="1.50">3 / 2</option>
+				  <option value="2">2 / 1</option>
+				  <option value="3">3 / 1</option>
+				</select>
+			</form>
+		</div>
+		<div id="state-diagram">&nbsp;</div>
+	</div>
+	<div id="submitted-machines" class="tab-contents">&nbsp;</div>
+
+</body>
+</html>
