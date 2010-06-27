@@ -120,7 +120,7 @@ function requestMachine(id, dele) {
 								{tag: 'span', html: ' '},
 								{tag: 'a', href: 'javascript:openMachine(\''+el.id+'\');', children: [
 									{tag: 'span', html: el.comment + ' / '},
-									{tag: 'pre', html: el.input}
+									{tag: 'span', style: 'font-family: monospace;', html: el.input}
 								]}
 							]
 						};})
