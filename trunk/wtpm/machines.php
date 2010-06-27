@@ -26,10 +26,10 @@ if ($_POST['op'] === 'get') {
 	$machine = $dbh->query("select * from machines where id = $dbid")->fetch(PDO::FETCH_ASSOC);
 	echo json_encode(array(
 		'id'      => $machine['id'],
-		'name'    => htmlspecialchars($machine['name']),
-		'comment' => htmlspecialchars($machine['comment']),
-		'machine' => htmlspecialchars($machine['machine']),
-		'input'   => htmlspecialchars($machine['input'])
+		'name'    => $machine['name'],
+		'comment' => $machine['comment'],
+		'machine' => $machine['machine'],
+		'input'   => $machine['input']
 	));
 } else if ($_POST['op'] === 'store') {
 	$dbid = $dbh->quote(rand_str(50));
@@ -46,7 +46,7 @@ if ($_POST['op'] === 'get') {
 	$response = array();
 	foreach ($dbh->query("select name, id from machine_names order by timestamp desc") as $row) {
 		$response[] = array(
-			'name' => htmlspecialchars($row['name']),
+			'name' => $row['name'],
 			'id' => $row['id']
 			);
 	}
@@ -57,7 +57,7 @@ if ($_POST['op'] === 'get') {
 	$dbname = $dbh->quote($asdf['name']);
 
 	$response = array();
-	$response['name'] = htmlspecialchars($asdf['name']);
+	$response['name'] = $asdf['name'];
 
 	// delete if requested
 	if ($_POST['delete'] === 'true') {
@@ -81,9 +81,9 @@ if ($_POST['op'] === 'get') {
 	foreach ($dbh->query("select name, id, comment, input from machines where name = $dbname order by timestamp desc") as $row)
 		$response['items'][] = array(
 			'id' => $row['id'],
-			'name' => htmlspecialchars($row['name']),
-			'comment' => htmlspecialchars($row['comment']),
-			'input' => htmlspecialchars($row['input'])
+			'name' => $row['name'],
+			'comment' => $row['comment'],
+			'input' => $row['input']
 		);
 
 	echo json_encode($response);
