@@ -160,6 +160,9 @@ function storeMachine() {
 				iconCls: 'x-status-ok',
 				clear: true
 			});
+      
+      // Update machine list
+      loadMachineList(WebFrontend.currentMachineListId);
 		}
 	});
 }
