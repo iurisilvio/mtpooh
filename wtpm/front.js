@@ -178,16 +178,31 @@ function requestMachine(id, dele) {
 	}
 }
 
+function setOpacity(elem, opacityAsInt)
+{
+    var opacityAsDecimal = opacityAsInt;
+    
+    if (opacityAsInt > 100)
+        opacityAsInt = opacityAsDecimal = 100; 
+    else if (opacityAsInt < 0)
+        opacityAsInt = opacityAsDecimal = 0; 
+    
+    opacityAsDecimal /= 100;
+    if (opacityAsInt < 1)
+        opacityAsInt = 1; // IE7 bug, text smoothing cuts out if 0
+    
+    elem.style.opacity = (opacityAsDecimal);
+    elem.style.filter  = "alpha(opacity=" + opacityAsInt + ")";
+}
+
 function showOverlay()
 {
-  var overlay = document.getElementById('machineOverlay');
-  overlay.style.display = 'block';
+  setOpacity(document.getElementById('machine'), 50);
 }
 
 function hideOverlay()
 {
-  var overlay = document.getElementById('machineOverlay');
-  overlay.style.display = 'none';
+  setOpacity(document.getElementById('machine'), 100);
 }
 
 function storeMachine() {
