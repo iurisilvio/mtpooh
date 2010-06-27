@@ -247,41 +247,6 @@ Ext.onReady(function() {
 						autoClear: 2000,
 						defaultText: '&nbsp;'
 					})
-				}, {
-					region: 'east',
-					split: true,
-					collapsible: true,
-					floatable: false,
-					deferredRender: false,
-					margins: '0 0 0 0',
-					width: '40%',
-					layout: 'fit',
-					items: new Ext.TabPanel({
-						id: 'east-tabpanel',
-						height: '100%',
-						activeTab: 0,
-						items: [{
-							title: 'Simulador',
-							contentEl: 'simulator',
-							autoScroll: true
-						}, {
-							id: 'submitted-machines-panel',
-							title: 'Máquinas Submetidas',
-							contentEl: 'submitted-machines',
-							preventBodyReset: true,
-							tbar: new Ext.Toolbar({
-								items: [{
-									id: 'submitted-machines-goback',
-									text: 'Voltar',
-									iconCls: 'back16',
-									handler: function() {loadMachineList(null);}
-								}, {
-									text: 'Atualizar',
-									handler: function() {loadMachineList(WebFrontend.currentMachineListId);}
-								}]
-							})
-						}]
-					})
 				}]
 			},{
 				title: 'Diagrama de Estados',
@@ -291,7 +256,42 @@ Ext.onReady(function() {
 					'activate': generateStateDiagram
 				}
 			}]
-		})]
+		}), {
+			region: 'east',
+			split: true,
+			collapsible: true,
+			floatable: false,
+			deferredRender: false,
+			margins: '0 0 0 0',
+			width: '40%',
+			layout: 'fit',
+			items: new Ext.TabPanel({
+				id: 'east-tabpanel',
+				height: '100%',
+				activeTab: 0,
+				items: [{
+					title: 'Simulador',
+					contentEl: 'simulator',
+					autoScroll: true
+				}, {
+					id: 'submitted-machines-panel',
+					title: 'Máquinas Submetidas',
+					contentEl: 'submitted-machines',
+					preventBodyReset: true,
+					tbar: new Ext.Toolbar({
+						items: [{
+							id: 'submitted-machines-goback',
+							text: 'Voltar',
+							iconCls: 'back16',
+							handler: function() {loadMachineList(null);}
+						}, {
+							text: 'Atualizar',
+							handler: function() {loadMachineList(WebFrontend.currentMachineListId);}
+						}]
+					})
+				}]
+			})
+		}]
 	});
 	
 	// Setting up machine code text area
