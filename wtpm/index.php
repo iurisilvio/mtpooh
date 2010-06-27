@@ -1,3 +1,3 @@
 <?php 
 
-include 'r1.php';
+header('Location: front.html');
