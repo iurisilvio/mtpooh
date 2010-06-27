@@ -178,31 +178,14 @@ function requestMachine(id, dele) {
 	}
 }
 
-function setOpacity(elem, opacityAsInt)
-{
-    var opacityAsDecimal = opacityAsInt;
-    
-    if (opacityAsInt > 100)
-        opacityAsInt = opacityAsDecimal = 100; 
-    else if (opacityAsInt < 0)
-        opacityAsInt = opacityAsDecimal = 0; 
-    
-    opacityAsDecimal /= 100;
-    if (opacityAsInt < 1)
-        opacityAsInt = 1; // IE7 bug, text smoothing cuts out if 0
-    
-    elem.style.opacity = (opacityAsDecimal);
-    elem.style.filter  = "alpha(opacity=" + opacityAsInt + ")";
-}
-
 function showOverlay()
 {
-  setOpacity(document.getElementById('machine'), 50);
+  Ext.getCmp('main-tabpanel').getEl().mask();
 }
 
 function hideOverlay()
 {
-  setOpacity(document.getElementById('machine'), 100);
+  Ext.getCmp('main-tabpanel').getEl().unmask();
 }
 
 function storeMachine() {
