@@ -21,7 +21,17 @@ function make_hash($name, $comment, $machine, $input) {
 // main
 $dbh = new PDO('sqlite:./db.db');
 
-if ($_POST['op'] === 'store') {
+if ($_POST['op'] === 'get') {
+	$dbid = $dbh->quote($_POST['id']);
+	$machine = $dbh->query("select * from machines where id = $dbid")->fetch(PDO::FETCH_ASSOC);
+	echo json_encode(array(
+		'id'      => $machine['id'],
+		'name'    => htmlspecialchars($machine['name']),
+		'comment' => htmlspecialchars($machine['comment']),
+		'machine' => htmlspecialchars($machine['machine']),
+		'input'   => htmlspecialchars($machine['input'])
+	));
+} else if ($_POST['op'] === 'store') {
 	$dbid = $dbh->quote(rand_str(50));
 	$dbname = $dbh->quote($_POST['name']);
 	$dbcomment = $dbh->quote($_POST['comment']);

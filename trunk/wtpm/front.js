@@ -9,6 +9,10 @@ if (Ext && typeof(Ext.map) == 'undefined') {
 	};
 }
 
+var WebFrontend = {
+	currentMachineListId: null
+};
+
 function randomString(length) {
     var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'.split('');
     if (!length)
@@ -70,6 +74,7 @@ function loadMachineList(id) {
 }
 
 function requestMachine(id, dele) {
+	WebFrontend.currentMachineListId = id;
 	var el = Ext.get('submitted-machines');
 	if (id == null) {
 		Ext.getCmp('submitted-machines-goback').disable();
@@ -77,14 +82,13 @@ function requestMachine(id, dele) {
 			render: function(el, xhr) {
 				var respObj = Ext.util.JSON.decode(xhr.responseText);
 				el.update('');
+				el.createChild({tag: 'h4', html: 'Todas as máquinas'})
 				el.createChild({
 					tag: 'ul',
 					children: Ext.map(respObj, function(el) { return {
-						tag: 'li', children: {
-							tag: 'a',
-							href: 'javascript:loadMachineList(\'' + el.id + '\')',
-							html: el.name
-						}
+						tag: 'li', children: [
+							{tag: 'a', href: 'javascript:loadMachineList(\'' + el.id + '\')', html: el.name}
+						]
 					};})
 				});
 			}
@@ -112,9 +116,12 @@ function requestMachine(id, dele) {
 						tag: 'ul',
 						children: Ext.map(respObj.items, function(el) { return {
 							tag: 'li', children: [
-								{tag: 'a', href: 'javascript:deleteMachine(\''+el.id+'\')', html: '[X]'},
+								{tag: 'a', href: 'javascript:deleteMachine(\''+el.id+'\')', html: '[X]', 'ext:qtip': 'Clique no X para deletar esta máquina!'},
 								{tag: 'span', html: ' '},
-								{tag: 'a', href: 'javascript:void(0);', html: el.name}
+								{tag: 'a', href: 'javascript:openMachine(\''+el.id+'\');', children: [
+									{tag: 'span', html: el.comment + ' / '},
+									{tag: 'pre', html: el.input}
+								]}
 							]
 						};})
 					});
@@ -146,7 +153,7 @@ function storeMachine() {
 			'input': Ext.get('machine-input').getValue(),
 			'machine': Ext.get('machine-code').getValue()
 		},
-		success: function(el) {
+		success: function(xhr) {
 			sb.clearStatus();
 			sb.setStatus({
 				text: 'Salvo!',
@@ -155,6 +162,31 @@ function storeMachine() {
 			});
 		}
 	});
+}
+
+function openMachine(id) {
+	var sb = Ext.getCmp('machine-statusbar');
+	sb.showBusy('Carregando...');
+	Ext.Ajax.request({
+		url: 'machines.php',
+		params: {
+			'op': 'get',
+			'id': id
+		},
+		success: function(xhr) {
+			var respObj = Ext.decode(xhr.responseText);
+			Ext.get('machine-name').set({value: respObj.name});
+			Ext.get('machine-comment').set({value: respObj.comment});
+			Ext.get('machine-input').set({value: respObj.input});
+			Ext.get('machine-code').update(respObj.machine);
+			sb.clearStatus();
+			sb.setStatus({
+				text: 'Máquina carregada!',
+				iconCls: 'x-status-ok',
+				clear: true
+			});
+		}
+	})
 }
 
 function simulate() {
@@ -208,6 +240,7 @@ Ext.onReady(function() {
 					}),
 					bbar: new Ext.ux.StatusBar({
 						id: 'machine-statusbar',
+						autoClear: 2000,
 						defaultText: '&nbsp;'
 					})
 				}, {
@@ -238,6 +271,9 @@ Ext.onReady(function() {
 									text: 'Voltar',
 									iconCls: 'back16',
 									handler: function() {loadMachineList(null);}
+								}, {
+									text: 'Atualizar',
+									handler: function() {loadMachineList(WebFrontend.currentMachineListId);}
 								}]
 							})
 						}]
@@ -263,5 +299,17 @@ Ext.onReady(function() {
 		ev.stopEvent();
 	});
 	
+	// Loading Machine List
 	loadMachineList(null);
+	
+	// QuickTips
+	Ext.QuickTips.init();
+	Ext.apply(Ext.QuickTips.getQuickTip(), {
+	    maxWidth: 200,
+	    minWidth: 100,
+	    showDelay: 50,
+		hideDelay: 50,
+		dismissDelay: 3000,
+	    trackMouse: true
+	});
 });
