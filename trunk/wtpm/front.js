@@ -178,9 +178,22 @@ function requestMachine(id, dele) {
 	}
 }
 
+function showOverlay()
+{
+  var overlay = document.getElementById('machineOverlay');
+  overlay.style.display = 'block';
+}
+
+function hideOverlay()
+{
+  var overlay = document.getElementById('machineOverlay');
+  overlay.style.display = 'none';
+}
+
 function storeMachine() {
-	var sb = Ext.getCmp('machine-statusbar');
-	sb.showBusy('Salvando...');
+	var sb = Ext.getCmp('machine-statusbar');    
+	sb.showBusy('Salvando...'); 
+  showOverlay();
 	Ext.Ajax.request({
 		url: 'machines.php',
 		params: {
@@ -191,6 +204,7 @@ function storeMachine() {
 			'machine': Ext.get('machine-code').getValue()
 		},
 		success: function(xhr) {
+      hideOverlay();
 			sb.clearStatus();
 			sb.setStatus({
 				text: 'Salvo!',
@@ -205,6 +219,7 @@ function storeMachine() {
 
 function openMachine(id) {
 	var sb = Ext.getCmp('machine-statusbar');
+  showOverlay();
 	sb.showBusy('Carregando...');
 	Ext.Ajax.request({
 		url: 'machines.php',
@@ -213,6 +228,7 @@ function openMachine(id) {
 			'id': id
 		},
 		success: function(xhr) {
+      hideOverlay();
 			var respObj = Ext.decode(xhr.responseText);
 			Ext.get('machine-name').set({value: respObj.name});
 			Ext.get('machine-comment').set({value: respObj.comment});
