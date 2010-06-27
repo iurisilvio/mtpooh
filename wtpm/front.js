@@ -80,7 +80,7 @@ function generateStateDiagram() {
 				el.update('');
 				el.createChild({
 					tag: 'pre',
-					html: respObj.errorText
+					html: Ext.util.Format.htmlEncode(respObj.errorText)
 				});
 			}
 		}
@@ -124,7 +124,7 @@ function requestMachine(id, dele) {
 					tag: 'ul',
 					children: Ext.map(respObj, function(el) { return {
 						tag: 'li', children: [
-							{tag: 'a', href: 'javascript:loadMachineList(\'' + el.id + '\')', html: el.name}
+							{tag: 'a', href: 'javascript:loadMachineList(\'' + el.id + '\')', html: Ext.util.Format.htmlEncode(el.name)}
 						]
 					};})
 				});
@@ -147,7 +147,7 @@ function requestMachine(id, dele) {
 					loadMachineList(null);
 				} else {
 					el.update('');
-					el.createChild({tag: 'h4', html: respObj.name});
+					el.createChild({tag: 'h4', html: Ext.util.Format.htmlEncode(respObj.name)});
 					// console.log(xhr.responseText);
 					el.createChild({
 						tag: 'ul',
@@ -156,8 +156,8 @@ function requestMachine(id, dele) {
 								{tag: 'a', href: 'javascript:deleteMachine(\''+el.id+'\')', html: '[X]', 'ext:qtip': 'Clique no X para deletar esta máquina!'},
 								{tag: 'span', html: ' '},
 								{tag: 'a', href: 'javascript:openMachine(\''+el.id+'\');', children: [
-									{tag: 'span', html: el.comment + ' / '},
-									{tag: 'span', style: 'font-family: monospace;', html: el.input}
+									{tag: 'span', html: Ext.util.Format.htmlEncode(el.comment) + ' / '},
+									{tag: 'span', style: 'font-family: monospace;', html: Ext.util.Format.htmlEncode(el.input)}
 								]}
 							]
 						};})
@@ -253,7 +253,7 @@ function simulate() {
 			el.update('');
 			el.createChild({
 				tag: 'pre',
-				html: xhr.responseText
+				html: Ext.util.Format.htmlEncode(xhr.responseText)
 			});
 		}
 	});

@@ -25,7 +25,7 @@ fclose($fp2);
 
 $outlines = array();
 exec("{$turing_dir}turing $fname $fname2", $outlines);
-echo(htmlspecialchars(join("\n", $outlines)));
+echo(join("\n", $outlines));
 
 @unlink($fname);
 @unlink($fname2);
