@@ -1,6 +1,6 @@
 <?php
 
-$turing_dir = 'turing4/';
+$turing_dir = 'turing4' . DIRECTORY_SEPARATOR;
 
 function rand_str($length = 32, $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890')
 {
