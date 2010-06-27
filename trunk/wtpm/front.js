@@ -23,13 +23,54 @@ function randomString(length) {
     return str;
 }
 
+var lastParams = 		
+{
+			'machine': '',
+			'lr': '',
+			'ef': '',
+			'ratio': ''
+};
+
+function shouldGenerateStateDiagram(newParams, lastParams)
+{
+  var areDifferent = false;
+  
+  Ext.each(['machine','lr','ef','ratio'], function(el)
+  {
+    if (newParams[el] != lastParams[el])
+    {
+      areDifferent = true;
+    }
+  });
+  
+  return areDifferent;
+}
+
 function generateStateDiagram() {
 	var machineCode = Ext.get('machine-code').getValue();
 	var el = Ext.get('state-diagram');
+	var lrEl = Ext.get('state-diagram-lr');
+	var efEl = Ext.get('state-diagram-ef');
+	var ratioEl = Ext.get('state-diagram-ratio');  
+  
+  var newParams = {
+			'send_data': true,
+			'machine': machineCode,
+			'lr': lrEl.dom.checked,
+			'ef': efEl.dom.checked,
+			'ratio': ratioEl.getValue()
+		};
+    
+  if (!shouldGenerateStateDiagram(newParams, lastParams))
+  {
+    return;
+  }
+  
 	el.getUpdater().setRenderer({
 		render: function(el, xhr) {
 			var respObj = Ext.util.JSON.decode(xhr.responseText);
 			if (respObj.success) {
+        lastParams = newParams;
 				el.update('');
 				el.createChild({
 					tag: 'img',
@@ -44,18 +85,10 @@ function generateStateDiagram() {
 			}
 		}
 	});
-	lrEl = Ext.get('state-diagram-lr');
-	efEl = Ext.get('state-diagram-ef');
-	ratioEl = Ext.get('state-diagram-ratio');
+
 	el.getUpdater().update({
 		url: 'graph.php',
-		params: {
-			'send_data': true,
-			'machine': machineCode,
-			'lr': lrEl.dom.checked,
-			'ef': efEl.dom.checked,
-			'ratio': ratioEl.getValue()
-		},
+		params: newParams,
 		text: 'Carregando...',
 		scripts: false
 	});
@@ -63,6 +96,10 @@ function generateStateDiagram() {
 		el.removeAllListeners(); 
 		el.on('change', generateStateDiagram);
 	});
+
+  Ext.each([lrEl, efEl], function(el) {
+    el.on('click', generateStateDiagram); // IE bugfix
+  });
 }
 
 function deleteMachine(id) {
