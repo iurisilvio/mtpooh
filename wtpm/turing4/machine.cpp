@@ -1,20 +1,51 @@
 #include "machine.h"
 #include <cstdlib>
 #include <cstring>
+#include <map>
 #define FMT " %[a-zA-Z0-9_+*&~!-]"
 
-bool machine::run()
+runresults machine::run()
 {
   q=&vet[0];
-  for(int i=0; apply(); ++i)
-    {
-      t->print();
-      printf("%s\n", q->name.c_str());
-      if (i>50000)
-	return false;
-    }
-  return true;
+
+  instantconfiguration initial = getInstantConfiguration();
+  runresults results;
+  results.finished = false;
+  results.runsteps.push_back(initial);
+  results.loop_start = 0;
+  results.loop_end = 0;
+
+  map<instantconfiguration, int> configurationsSet;
+  configurationsSet[initial] = 1;
+
+  for(int i=1; apply(); ++i)
+  {
+      instantconfiguration current = getInstantConfiguration();
+      results.runsteps.push_back(current);
+
+      if (configurationsSet[current] != 0)
+      {
+          results.finished = false;
+          results.loop_start = configurationsSet[current] - 1;
+          results.loop_end = i;
+          return results;
+      }
+      else
+      {
+          configurationsSet[current] = (i + 1);
+      }
+
+      if (i >= 50000)
+      {
+        results.finished = false;
+        return results;
+      }
+  }
+
+  results.finished = true;
+  return results;
 }
+
 void machine::debug()
 {
   for(unsigned int i=0; i<vet.size(); ++i)
@@ -27,6 +58,7 @@ void machine::debug()
       printf("}\n");
     }
 }
+
 bool machine::apply()
 {
   map<char, result>::iterator mit;
@@ -40,6 +72,27 @@ bool machine::apply()
     return false;
   return true;
 }
+
+instantconfiguration machine::getInstantConfiguration()
+{
+    const char *hackedTapeString = &(t->vet[0]);
+
+    instantconfiguration conf;
+    conf.a1 = string(hackedTapeString, t->pos);
+
+    int end;
+    for(end= t->vet.size() - 1; end> t->pos; --end)
+        if (hackedTapeString[end]!='#')
+            break;
+    int a2size = (end + 1) - t->pos;
+
+    conf.a2 = string(hackedTapeString + t->pos, a2size);
+
+    conf.s = q;
+
+    return conf;
+}
+
 void skip_comment(FILE* fin)
 {
   char tmp[5];

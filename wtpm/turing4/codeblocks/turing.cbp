@@ -20,6 +20,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="..\instantconfiguration.cpp" />
 		<Unit filename="..\machine.cpp" />
 		<Unit filename="..\machine.h" />
 		<Unit filename="..\result.cpp" />

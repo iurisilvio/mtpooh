@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <ctime>
 #include <vector>
 #include <list>
 #include <cstdlib>
@@ -36,13 +37,48 @@ int main(int argc, char* argv[])
   if (!m.read(f1))
     return 1;
   t.read(f2);
+
   //m.debug();
-  t.print();
-  printf("%s\n", m.vet[0].name.c_str());
-  printf("During computation:\n");
-  if (m.run())
-    printf("Computation finished.\n");
+
+  clock_t start = clock();
+  runresults results = m.run();
+
+  // Print run information
+  if (results.finished)
+  {
+    if (results.runsteps.back().s->final)
+    {
+        printf("Input accepted!\n\n");
+    }
+    else
+    {
+        printf("Input rejected!\n\n");
+    }
+  }
   else
-    printf("Step Limit Exceeded.\n");
+  {
+    if (results.loop_end != 0)
+    {
+        printf("Machine entered in loop (steps %d and %d have identical configurations)\n\n", results.loop_start, results.loop_end);
+    }
+    else
+    {
+        printf("Computation aborted. Step limit exceeded!\n\n");
+    }
+  }
+
+  printf("Final Configuration:\n");
+  results.runsteps.back().print(results.runsteps.size() - 1);
+
+  printf("\nStep Count: %d\nRun time: %.3f seconds\n\n", results.runsteps.size(), ((double)clock() - start) / CLOCKS_PER_SEC);
+
+  // Print step-by-step afterwards
+
+  printf("Computation steps:\n");
+  for (unsigned int i = 0; i < results.runsteps.size(); ++i)
+  {
+      results.runsteps[i].print(i);
+  }
+
   return 0;
 }
