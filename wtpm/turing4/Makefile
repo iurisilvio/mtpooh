@@ -1,7 +1,7 @@
 CXX=g++
 CXX_CFLAGS=-g -pedantic -ansi -Wall -Wno-long-long
 
-SRCS_SHARED=state.cpp machine.cpp result.cpp tape.cpp
+SRCS_SHARED=state.cpp machine.cpp result.cpp tape.cpp instantconfiguration.cpp
 OBJS_SHARED=${SRCS_SHARED:.cpp=.o}
 EXE=turing graph-gen
 
