@@ -230,7 +230,7 @@ function openMachine(id) {
 			var respObj = Ext.decode(xhr.responseText);
 			Ext.get('machine-name').set({value: respObj.name});
 			Ext.get('machine-comment').set({value: respObj.comment});
-			Ext.get('machine-input').set({value: respObj.input});
+			Ext.get('machine-input').dom.value = respObj.input;
 			Ext.get('simulator-input').set({value: respObj.input});
 			Ext.get('machine-code').dom.value = respObj.machine; // works across Safari, Firefox and IE, I think
 			elasticTextArea('machine-code'); // refreshing height
