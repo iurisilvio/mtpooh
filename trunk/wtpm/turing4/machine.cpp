@@ -4,8 +4,9 @@
 #include <map>
 #define FMT " %[a-zA-Z0-9_+*&~!-]"
 
-runresults machine::run()
+runresults machine::run(tape *tp)
 {
+  t = tp;
   q=&vet[0];
 
   instantconfiguration initial = getInstantConfiguration();
@@ -80,11 +81,8 @@ instantconfiguration machine::getInstantConfiguration()
     instantconfiguration conf;
     conf.a1 = string(hackedTapeString, t->pos);
 
-    int end;
-    for(end= t->vet.size() - 1; end> t->pos; --end)
-        if (hackedTapeString[end]!='#')
-            break;
-    int a2size = (end + 1) - t->pos;
+    int a2size = t->usedSize() - t->pos;
+    if (a2size < 0) a2size = 0;
 
     conf.a2 = string(hackedTapeString + t->pos, a2size);
 
@@ -300,9 +298,9 @@ bool machine::read(FILE* fin)
     }
   return true;
 }
-machine::machine(tape* ta)
+machine::machine()
 {
-  t=ta;
+    this->t = NULL;
 }
 
 char toGraphLetter(const char c)
