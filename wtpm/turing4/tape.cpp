@@ -1,18 +1,39 @@
 #include "machine.h"
 
-void tape::read(FILE* fin)
+bool tape::read(FILE* fin)
 {
-  for(int i=pos; ; ++i)
+    bool startedReading = false;
+
+    for(int i=pos; ; ++i)
     {
-      if (fscanf(fin, " %c", &vet[i])!=1)
-	{
-	  vet[i]='#';
-	  break;
-	}
-      if (vet[i]=='#')
-	{
-	  break;
-	}
+        int c = fgetc(fin);
+        if (c < 0)
+        {
+            vet[i]='#';
+            return (i != 0);
+        }
+
+        if (c == '#')
+        {
+            return true;
+        }
+        else if (c == '\r' || c == '\n')
+        {
+            if (startedReading)
+            {
+                return true;
+            }
+            else
+            {
+                --i;
+            }
+        }
+        else
+        {
+            startedReading = true;
+            vet[i] = c;
+            ++my_usedSize;
+        }
     }
 }
 
@@ -23,8 +44,21 @@ char tape::get()
 
 void tape::set(result r)
 {
-  vet[pos]=r.insert;
-  pos+=r.dir;
+  vet[pos] = r.insert;
+
+  if (r.insert == '#' && pos == (my_usedSize - 1))
+  {
+      while (vet[my_usedSize - 1] == '#')
+      {
+          --my_usedSize;
+      }
+  }
+  else if (r.insert != '#' && pos > (my_usedSize - 1))
+  {
+      my_usedSize = pos + 1;
+  }
+
+  pos += r.dir;
 }
 
 tape::tape(int n)
@@ -33,8 +67,10 @@ tape::tape(int n)
   for(int i=0; i<n; ++i)
     vet[i]='#';
   pos=0;
+  my_usedSize = 0;
 }
-tape::tape()
-{
 
+int tape::usedSize() const
+{
+    return my_usedSize;
 }

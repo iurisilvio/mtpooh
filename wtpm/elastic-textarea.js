@@ -1,3 +1,5 @@
+var divs = {}
+
 function elasticTextArea (elementId){
 
 	/*
@@ -56,17 +58,17 @@ function elasticTextArea (elementId){
 	//hide the text area scrool to avoid flickering
 	el.setStyle('overflow', 'hidden');
 	//create the hidden div only if does not exists
-	if(! this.div){
+	if(!divs[elementId]){
 
 		//create the hidden div outside the viewport area
-		this.div = Ext.DomHelper.append(Ext.getBody() || document.body, {
+		divs[elementId] = Ext.DomHelper.append(Ext.getBody() || document.body, {
 			'id':elementId + '-preview-div'
 			,'tag' : 'div'
 			,'style' : 'position: absolute; top: -100000px; left: -100000px;'
 		}, true);
 
 		//apply the text area styles to the hidden div
-		applyStyles(this.div, styles);
+		applyStyles(divs[elementId], styles);
 
 
 		//recalculate the div height on each key stroke
@@ -78,7 +80,7 @@ function elasticTextArea (elementId){
 	//clean up text area contents, so that no special chars are processed
 	//replace \n with <br>&nbsp; so that the enter key can trigger a height increase
 	//but first remove all previous entries, so that the height measurement can be as accurate as possible
-	this.div.update(
+	divs[elementId].update(
 		el.dom.value
 			.replace(/<br \/>&nbsp;/, '<br />')
 			.replace(/<|>/g, ' ')
@@ -86,7 +88,7 @@ function elasticTextArea (elementId){
 			.replace(/\n/g, '<br />&nbsp;'));
 
 	//finally get the div height
-	var textHeight = this.div.getHeight();
+	var textHeight = divs[elementId].getHeight();
 	//enforce text area maximum and minimum size
 	if ( (textHeight > maxHeight ) && (maxHeight > 0) ){
 		textHeight = maxHeight ;

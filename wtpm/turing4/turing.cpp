@@ -15,7 +15,7 @@
 using namespace std;
 
 #include "machine.h"
-const int tape_size = 30000;
+const int tape_size = 1000;
 
 FILE* nth_file(int n, int argc, char* argv[])
 {
@@ -27,57 +27,101 @@ FILE* nth_file(int n, int argc, char* argv[])
     res=stdin;
   if (!res)
     throw ex;
+
   return res;
 }
-int main(int argc, char* argv[])
+
+void runDetailed(machine& m, tape *t)
 {
-  FILE *f1 = nth_file(1, argc, argv), *f2 = nth_file(2, argc, argv);
-  tape t(tape_size);
-  machine m(&t);
-  if (!m.read(f1))
-    return 1;
-  t.read(f2);
+    clock_t start = clock();
+    runresults results = m.run(t);
 
-  //m.debug();
-
-  clock_t start = clock();
-  runresults results = m.run();
-
-  // Print run information
-  if (results.finished)
-  {
-    if (results.runsteps.back().s->final)
+    // Print run information
+    if (results.finished)
     {
-        printf("Input accepted!\n\n");
+        if (results.runsteps.back().s->final)
+        {
+            printf("Input accepted!\n\n");
+        }
+        else
+        {
+            printf("Input rejected!\n\n");
+        }
     }
     else
     {
-        printf("Input rejected!\n\n");
+        if (results.loop_end != 0)
+        {
+            printf("Machine entered in loop (steps %d and %d have identical configurations)\n\n", results.loop_start, results.loop_end);
+        }
+        else
+        {
+            printf("Computation aborted. Step limit exceeded!\n\n");
+        }
     }
+
+    printf("Final Configuration:\n");
+    results.runsteps.back().print(results.runsteps.size() - 1);
+
+    printf("\nStep Count: %d\nRun time: %.3f seconds\n\n", results.runsteps.size(), ((double)clock() - start) / CLOCKS_PER_SEC);
+
+    // Print step-by-step afterwards
+
+    printf("Computation steps:\n");
+    for (unsigned int i = 0; i < results.runsteps.size(); ++i)
+    {
+      results.runsteps[i].print(i);
+    }
+}
+
+int main(int argc, char* argv[])
+{
+  FILE *f1 = nth_file(1, argc, argv),
+       *f2 = nth_file(2, argc, argv);
+  vector<tape*> tapes;
+  machine m;
+
+  if (!m.read(f1))
+    return 1;
+
+  do
+  {
+      tape* t = new tape(tape_size);
+      if (t->read(f2))
+      {
+        tapes.push_back(t);
+      }
+  } while (f2 != stdin && !feof(f2));
+
+  if (tapes.size() == 1)
+  {
+      runDetailed(m, tapes[0]);
   }
   else
   {
-    if (results.loop_end != 0)
-    {
-        printf("Machine entered in loop (steps %d and %d have identical configurations)\n\n", results.loop_start, results.loop_end);
-    }
-    else
-    {
-        printf("Computation aborted. Step limit exceeded!\n\n");
-    }
-  }
+      int maxTapeSize = 7;
 
-  printf("Final Configuration:\n");
-  results.runsteps.back().print(results.runsteps.size() - 1);
+      for (unsigned i = 0; i < tapes.size(); ++i)
+      {
+          if (tapes[i]->usedSize() > maxTapeSize)
+          {
+              maxTapeSize = tapes[i]->usedSize();
+          }
+      }
 
-  printf("\nStep Count: %d\nRun time: %.3f seconds\n\n", results.runsteps.size(), ((double)clock() - start) / CLOCKS_PER_SEC);
+      printf("Input%*s Result     Step Count \n", maxTapeSize - 5, "");
+      printf("\n");
 
-  // Print step-by-step afterwards
+      for (unsigned i = 0; i < tapes.size(); ++i)
+      {
+          runresults results = m.run(tapes[i]);
+          const char *status = results.finished ? (results.runsteps.back().s->final ? "accepted" : "rejected") :
+                               (results.loop_end == 0) ? "step limit" : "loop";
 
-  printf("Computation steps:\n");
-  for (unsigned int i = 0; i < results.runsteps.size(); ++i)
-  {
-      results.runsteps[i].print(i);
+          const char *input = (results.runsteps[0].a2.size() == 0) ? "<empty>" : results.runsteps[0].a2.c_str();
+          printf("%-*s ", maxTapeSize, input);
+          printf("%-10s %d\n", status, results.runsteps.size());
+      }
   }
 
   return 0;

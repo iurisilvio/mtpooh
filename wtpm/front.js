@@ -347,7 +347,8 @@ Ext.onReady(function() {
 	
 	// Setting up machine code text area
 	elasticTextArea('machine-code');
-	
+  elasticTextArea('simulator-input');
+  
 	// Setting up simulator behavior
 	Ext.get('simulator-form').on('submit', function(ev) {
 		simulate();

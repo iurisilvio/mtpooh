@@ -31,11 +31,14 @@ class tape {
  public:
   vector<char> vet;
   int pos;
-  void read(FILE*);
+  bool read(FILE*);
+  int usedSize() const;
   char get();
   void set(result);
   tape(int);
   tape();
+private:
+  int my_usedSize;
 };
 
 class instantconfiguration
@@ -61,15 +64,15 @@ class runresults
 class machine {
  public:
   vector<state> vet;
-  tape* t;
   state* q;
-  runresults run();
+  runresults run(tape *t);
   bool apply();
   bool read(FILE*);
   void debug();
   bool hasOuterEdges(const state*);
   void generateGraph(FILE*f, const char *ratio, bool lr, bool dl, bool ef);
-  machine(tape*);
+  machine();
 private:
   instantconfiguration getInstantConfiguration();
+  tape *t;
 };
