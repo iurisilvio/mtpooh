@@ -233,7 +233,16 @@ function openMachine(id) {
 			Ext.get('machine-input').set({value: respObj.input});
 			Ext.get('simulator-input').dom.value = respObj.input;
 			Ext.get('machine-code').dom.value = respObj.machine; // works across Safari, Firefox and IE, I think
-			elasticTextArea('machine-code'); // refreshing height
+      
+      // Clear output
+			Ext.get('simulator-result').update('');
+      Ext.get('simulator-result').createChild({
+        tag:'pre',
+        html: 'Simule para ver uma saída!\nSaída detalhada mostrada apenas no caso de uma única entrada'
+      });
+      
+      elasticTextArea('machine-code'); // refreshing height
+      elasticTextArea('simulator-input');
 			sb.clearStatus();
 			sb.setStatus({
 				text: 'Máquina carregada!',
