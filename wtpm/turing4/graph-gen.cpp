@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
       else if (strcmp(argv[i], "-f") == 0 && (i + 1 < argc)) format = argv[i+1];
   }
 
-  machine m(NULL);
+  machine m;
   FILE *machine=fopen(argv[1], "r");
   if (!machine)
   {
