@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
           }
       }
 
-      printf("Input%*s Result     Step Count \n", maxTapeSize - 5, "");
+      printf("Input%*s Result     Steps  State: Tape\n", maxTapeSize - 5, "");
       printf("\n");
 
       for (unsigned i = 0; i < tapes.size(); ++i)
@@ -120,7 +120,8 @@ int main(int argc, char* argv[])
 
           const char *input = (results.runsteps[0].a2.size() == 0) ? "<empty>" : results.runsteps[0].a2.c_str();
           printf("%-*s ", maxTapeSize, input);
-          printf("%-10s %d\n", status, results.runsteps.size());
+          printf("%-10s %6d ", status, results.runsteps.size());
+          results.runsteps.back().printResumed();
       }
   }
 

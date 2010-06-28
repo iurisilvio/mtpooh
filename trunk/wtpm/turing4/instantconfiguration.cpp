@@ -15,14 +15,29 @@ int numdigits(int num)
 
 void instantconfiguration::print(int stepIndex) const
 {
+    printf("%d) ", stepIndex);
+    this->printTape();
+    printf("\n");
+
+    for (int i = -(2 + numdigits(stepIndex)); i <= (signed)a1.size(); ++i) putc(' ', stdout);
+    printf("%s\n\n", s->name.c_str());
+}
+
+void instantconfiguration::printResumed() const
+{
+
+    printf("%s: ", s->name.c_str());
+    this->printTape();
+    printf("\n");
+}
+
+void instantconfiguration::printTape() const
+{
     const char *beforeNextRead = a1.c_str();
     char nextRead = (a2.size() > 0) ? a2[0] : '#';
     const char *afterNextRead = (a2.size() > 1) ? (a2.c_str() + 1) : "";
 
-    printf("%d) %s(%c)%s\n", stepIndex, beforeNextRead, nextRead, afterNextRead);
-
-    for (int i = -(2 + numdigits(stepIndex)); i <= (signed)a1.size(); ++i) putc(' ', stdout);
-    printf("%s\n\n", s->name.c_str());
+    printf("%s(%c)%s", beforeNextRead, nextRead, afterNextRead);
 }
 
 int sign(int num)
