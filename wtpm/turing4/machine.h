@@ -49,7 +49,10 @@ class instantconfiguration
     string a2;
 
     void print(int stepIndex) const;
+    void printResumed() const;
     bool operator < (const instantconfiguration& other) const;
+  private:
+    void printTape() const;
 };
 
 class runresults
