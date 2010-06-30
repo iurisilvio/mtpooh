@@ -15,7 +15,7 @@
 </head>
 <body>
 
-	<div id="machine" class="tab-contents">    
+	<div id="machine" class="tab-contents x-hide-display">    
 		<form id="machine-form">
 			<div class="label">Nome da máquina:</div>
 			<div><input type="text" id="machine-name" class="entry" name="name" value="NOOOOME"/></div>
@@ -112,7 +112,7 @@ qf
 }</textarea></div>
 		</form>
 	</div>
-	<div id="simulator" class="tab-contents">
+	<div id="simulator" class="tab-contents x-hide-display">
 		<form id="simulator-form">
 			<div class="label">Entradas (uma por linha):</div>
 			<div><textarea id="simulator-input" class="entry" name="input">0010001</textarea></div>
@@ -122,7 +122,7 @@ qf
 		<div id="simulator-result"><pre>Simule para ver uma saída! 
 Saída detalhada mostrada apenas no caso de uma única entrada</pre></div>
 	</div>
-	<div id="state-diagram-tab" class="tab-contents">
+	<div id="state-diagram-tab" class="tab-contents x-hide-display">
 		<div id="state-diagram-options">
 			<form id="state-diagram-options-form">
 				<input type="checkbox" id="state-diagram-lr"/> Grafo Horizontal
@@ -144,7 +144,8 @@ Saída detalhada mostrada apenas no caso de uma única entrada</pre></div>
 		</div>
 		<div id="state-diagram">&nbsp;</div>
 	</div>
-	<div id="submitted-machines" class="tab-contents">&nbsp;</div>
+	<div id="submitted-machines" 
+class="tab-contents x-hide-display">&nbsp;</div>
 
 </body>
 </html>

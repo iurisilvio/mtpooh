@@ -1,3 +1,5 @@
+// -*- tab-width: 2 -*-
+
 // Strange thing Ext doesn't have a map function somewhere...
 if (Ext && typeof(Ext.map) == 'undefined') {
 	Ext.map = function(arr, f) {
