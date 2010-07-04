@@ -317,6 +317,9 @@ Ext.onReady(function() {
 				listeners: {
 					'activate': generateStateDiagram
 				}
+			},{
+				title: 'Ajuda',
+				contentEl: 'help-tab'
 			}]
 		}), {
 			region: 'east',
