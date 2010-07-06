@@ -157,7 +157,7 @@ function requestMachine(id, dele) {
 							tag: 'li', children: [
 								{tag: 'a', href: 'javascript:deleteMachine(\''+el.id+'\')', html: '[X]', 'ext:qtip': 'Clique no X para deletar esta máquina!'},
 								{tag: 'span', html: ' '},
-								{tag: 'a', href: 'javascript:openMachine(\''+el.id+'\');', children: [
+								{tag: 'a', href: 'javascript:SWFAddress.setValue(\'id/'+el.id+'\');', children: [
 									{tag: 'span', html: Ext.util.Format.htmlEncode(el.comment) + ' / '},
 									{tag: 'span', style: 'font-family: monospace;', html: Ext.util.Format.htmlEncode(el.input)}
 								]}
@@ -279,6 +279,12 @@ function simulate() {
 	});
 }
 
+function handleAddressChange(ev) {
+	console.log(ev);
+	if (ev.pathNames[0] == 'id')
+		openMachine(ev.pathNames[1]);
+}
+
 Ext.onReady(function() {
 	// Setting up layout
 	var viewport = new Ext.Viewport({
@@ -382,4 +388,7 @@ Ext.onReady(function() {
 		dismissDelay: 3000,
 	    trackMouse: true
 	});
+	
+	// Deep linking with SWFAddress
+	SWFAddress.addEventListener(SWFAddressEvent.CHANGE, handleAddressChange);
 });

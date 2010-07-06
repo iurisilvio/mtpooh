@@ -8,5 +8,5 @@ all:
 deploy:
 	test -n "$(DESTDIR)"
 	cp -rf *.php *.js *.css *.html $(DESTDIR)
-	cp -rf ext ext-plugins img $(DESTDIR)
+	cp -rf ext ext-plugins img help $(DESTDIR)
 	-for d in $(DIRS); do (cd $$d; $(MAKE) $(MFLAGS) deploy); done
