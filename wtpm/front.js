@@ -1,5 +1,11 @@
 // -*- tab-width: 2 -*-
 
+try {
+	console.log('init console... done.');
+} catch(e) {
+	var console = { log: function() {} };
+}
+
 // Strange thing Ext doesn't have a map function somewhere...
 if (Ext && typeof(Ext.map) == 'undefined') {
 	Ext.map = function(arr, f) {
@@ -157,7 +163,8 @@ function requestMachine(id, dele) {
 							tag: 'li', children: [
 								{tag: 'a', href: 'javascript:deleteMachine(\''+el.id+'\')', html: '[X]', 'ext:qtip': 'Clique no X para deletar esta máquina!'},
 								{tag: 'span', html: ' '},
-								{tag: 'a', href: 'javascript:SWFAddress.setValue(\'id/'+el.id+'\');', children: [
+								//{tag: 'a', href: 'javascript:SWFAddress.setValue(\'id/'+el.id+'\');', children: [
+								{tag: 'a', href: 'javascript:loadMachineAddress(\''+el.id+'\');', children: [
 									{tag: 'span', html: Ext.util.Format.htmlEncode(el.comment) + ' / '},
 									{tag: 'span', style: 'font-family: monospace;', html: Ext.util.Format.htmlEncode(el.input)}
 								]}
@@ -215,6 +222,10 @@ function storeMachine() {
 			loadMachineList(WebFrontend.currentMachineListId);
 		}
 	});
+}
+
+function loadMachineAddress(id) {
+	SWFAddress.setValue('id/' + id);
 }
 
 function openMachine(id) {
