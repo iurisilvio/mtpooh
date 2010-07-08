@@ -279,10 +279,10 @@ bool machine::read(FILE* fin)
 	      return false;
 	    }
 	  skip_comment(fin);
-	  if (fscanf(fin, " %1[RL]", s)!=1)
+	  if (fscanf(fin, " %1[RLS]", s)!=1)
 	    {
 	      printf("Syntax error while parsing state %d description:\n", i);
-	      printf("At %d transition, expected \'R\' or \'L\'\n", j);
+	      printf("At %d transition, expected \'R\', \'T\' or \'S\'\n", j);
 	      return false;
 	    }
 	  dir=s[0];
