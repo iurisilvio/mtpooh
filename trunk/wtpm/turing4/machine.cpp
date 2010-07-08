@@ -311,8 +311,9 @@ char toGraphLetter(const char c)
 
 char toGraphDir(int dir)
 {
-    if (dir < 0) return 'E';
-    else return 'D';
+    if (dir < 0) return 'L';
+    else if (dir == 0) return 'S';
+    else return 'R';
 }
 
 // TODO:
