@@ -63,7 +63,7 @@ void runDetailed(machine& m, tape *t)
     printf("Final Configuration:\n");
     results.runsteps.back().print(results.runsteps.size() - 1);
 
-    printf("\nStep Count: %d\nRun time: %.3f seconds\n\n", results.runsteps.size(), ((double)clock() - start) / CLOCKS_PER_SEC);
+    printf("\nStep Count: %d\nRun time: %.3f seconds\n\n", results.runsteps.size() - 1, ((double)clock() - start) / CLOCKS_PER_SEC);
 
     // Print step-by-step afterwards
 

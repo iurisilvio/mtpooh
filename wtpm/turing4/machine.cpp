@@ -36,7 +36,7 @@ runresults machine::run(tape *tp)
           configurationsSet[current] = (i + 1);
       }
 
-      if (i >= 50000)
+      if (i >= 500000)
       {
         results.finished = false;
         return results;
